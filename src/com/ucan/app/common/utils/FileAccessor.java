@@ -87,7 +87,7 @@ public class FileAccessor {
                 }
             }
         }
-        return getConfig(ECPreferenceSettings.SETTINGS_APPKEY);
+        return getConfig(UCPreferenceSettings.SETTINGS_APPKEY);
     }
 
     public static String getAppToken() {
@@ -104,11 +104,11 @@ public class FileAccessor {
                 }
             }
         }
-        return getConfig(ECPreferenceSettings.SETTINGS_TOKEN);
+        return getConfig(UCPreferenceSettings.SETTINGS_TOKEN);
     }
 
-    private static String getConfig(ECPreferenceSettings settings) {
-        SharedPreferences sharedPreferences = ECPreferences.getSharedPreferences();
+    private static String getConfig(UCPreferenceSettings settings) {
+        SharedPreferences sharedPreferences = UCPreferences.getSharedPreferences();
         String value = sharedPreferences.getString(settings.getId(), (String) settings.getDefaultValue());
         return value;
     }
