@@ -33,14 +33,14 @@ public class FileAccessor {
 
     public static final String TAG = FileAccessor.class.getName();
     public static String EXTERNAL_STOREPATH = getExternalStorePath();
-    public static final String APPS_ROOT_DIR = getExternalStorePath() + "/UCAN_app";
-    public static final String EXPORT_DIR = getExternalStorePath() + "/UCAN_app/IM";
-    public static final String CAMERA_PATH = getExternalStorePath() + "/DCIM/UCAN_app";
-    public static final String TACK_PIC_PATH = getExternalStorePath()+ "/UCAN_app/.tempchat";
-    public static final String IMESSAGE_VOICE = getExternalStorePath() + "/UCAN_app/voice";
-    public static final String IMESSAGE_IMAGE = getExternalStorePath() + "/UCAN_app/image";
-    public static final String IMESSAGE_AVATAR = getExternalStorePath() + "/UCAN_app/avatar";
-    public static final String IMESSAGE_FILE = getExternalStorePath() + "/UCAN_app/file";
+    public static final String APPS_ROOT_DIR = getExternalStorePath() + "/ucan";
+    public static final String EXPORT_DIR = getExternalStorePath() + "/ucan/IM";
+    public static final String CAMERA_PATH = getExternalStorePath() + "/DCIM/ucan";
+    public static final String TACK_PIC_PATH = getExternalStorePath()+ "/ucan/.tempchat";
+    public static final String IMESSAGE_VOICE = getExternalStorePath() + "/ucan/voice";
+    public static final String IMESSAGE_IMAGE = getExternalStorePath() + "/ucan/image";
+    public static final String IMESSAGE_AVATAR = getExternalStorePath() + "/ucan/avatar";
+    public static final String IMESSAGE_FILE = getExternalStorePath() + "/ucan/file";
     public static final String LOCAL_PATH = APPS_ROOT_DIR + "/config.txt";
 
 

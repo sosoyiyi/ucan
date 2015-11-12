@@ -10,5 +10,6 @@
     <string name="dialog_btn_confim">确认</string>
     <string name="dialog_btn_cancel">取消</string>
     <string name="loading_press">请稍候，正在提交...</string>
+    <string name="copyright">©Copyright 北京优侃互动科技有限公司</string>
 
 </resources>
