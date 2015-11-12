@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppBaseTheme" parent="@android:style/Theme.Light.NoTitleBar" />
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light.NoTitleBar"></style>
     <!-- Application theme. -->
     <style name="AppTheme" parent="@style/AppBaseTheme">
         <item name="android:windowContentOverlay">@null</item>

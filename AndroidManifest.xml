@@ -50,7 +50,7 @@
             android:value="yuntongxun_im_5.1.7r" />
 
         <activity
-            android:name=".ui.LauncherActivity"
+            android:name=".ui.Launcher"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" >
             <intent-filter>

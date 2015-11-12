@@ -1,10 +1,10 @@
-package com.ucan.app.ui.activity;
+package com.ucan.app.ui;
 
 import android.os.Bundle;
 
 import com.ucan.app.ui.base.BaseActivity;
 
-public class LaunchActivity extends BaseActivity {
+public class Launcher extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
