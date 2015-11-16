@@ -1,31 +1,89 @@
 package com.ucan.app.ui.base;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.ucan.app.common.view.SystemBarTintManager;
+import com.ucan.app.core.SDKCoreHelper;
+
 public class BaseActivity extends Activity {
 	private final static String TAG = "UCAN_BaseActivity";
+	private InternalReceiver internalReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTranslucentStatus();
+		getWindow()
+				.setSoftInputMode(
+						WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+								| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		try {
+			unregisterReceiver(internalReceiver);
+		} catch (Exception e) {
+		}
+	}
+
+	protected final void registerReceiver(String[] actionArray) {
+		if (actionArray == null) {
+			return;
+		}
+		IntentFilter intentfilter = new IntentFilter();
+		intentfilter.addAction(SDKCoreHelper.ACTION_KICK_OFF);
+		for (String action : actionArray) {
+			intentfilter.addAction(action);
+		}
+		if (internalReceiver == null) {
+			internalReceiver = new InternalReceiver();
+		}
+		registerReceiver(internalReceiver, intentfilter);
+	}
+
+	private class InternalReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent == null || intent.getAction() == null) {
+				return;
+			}
+			handleReceiver(context, intent);
+		}
+	}
+
+	protected void handleReceiver(Context context, Intent intent) {
+		// 广播处理
+		if (intent == null) {
+			return;
+		}
+		if (SDKCoreHelper.ACTION_KICK_OFF.equals(intent.getAction())) {
+			finish();
+		}
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+	}
+
+	protected void setSatutsBarTint(Activity activity, int color) {
+		setTranslucentStatus();
+		SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+		tintManager.setStatusBarTintResource(color);
+		tintManager.setStatusBarTintEnabled(true);
+		tintManager.setStatusBarDarkMode(true, activity);
 	}
 
 	@Override
@@ -44,7 +102,7 @@ public class BaseActivity extends Activity {
 	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
-	private void setTranslucentStatus() {
+	protected void setTranslucentStatus() {
 		Window win = getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

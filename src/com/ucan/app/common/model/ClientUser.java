@@ -41,10 +41,14 @@ public class ClientUser implements Parcelable {
 	 * 1-Male
 	 */
 	private int sex;
+	
+	
 	/**
 	 * 出生日期
 	 */
 	private long birth;
+	
+	
 	/**
 	 * 用户类别：<br/>
 	 * 0-普通 <br/>
@@ -54,6 +58,8 @@ public class ClientUser implements Parcelable {
 	 * 4-年费<br/>
 	 */
 	private int pType;
+	
+	
 	/**
 	 * 用户属性：<br/>
 	 * 0-初次使用<br/>
@@ -67,7 +73,6 @@ public class ClientUser implements Parcelable {
 	 * 用户签名
 	 * 
 	 */
-
 	private String signature;
 
 	private ECInitParams.LoginAuthType loginAuthType;

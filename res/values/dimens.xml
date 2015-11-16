@@ -8,5 +8,20 @@
     <dimen name="dialog_padding">15.0dip</dimen>
     <dimen name="text_list_title">16.0sp</dimen>
     <dimen name="text_view_content">15.0sp</dimen>
+    <dimen name="topbar_content_height">50.0dip</dimen>
+    <dimen name="btn_topbar_minwidth">58.0dip</dimen>
+    <dimen name="SmallPadding">8.0dip</dimen>
+    <dimen name="LoginInputWidth">250.0dip</dimen>
+    <dimen name="SmallListHeight">48.0dip</dimen>
+    <dimen name="size_large">20.0dip</dimen>
+    <dimen name="size_big">18.0dip</dimen>
+    <dimen name="size_medium">16.0dip</dimen>
+    <dimen name="size_top_title_size">20.0dip</dimen>
+    <dimen name="size_small">14.0dip</dimen>
+    <dimen name="size_tiny">12.0dip</dimen>
+    <dimen name="LargePadding">16.0dip</dimen>
+    <dimen name="NormalTextSize">16.0dip</dimen>
+    <dimen name="LargerPadding">24.0dip</dimen>
+    <dimen name="HintTextSize">14.0dip</dimen>
 
 </resources>

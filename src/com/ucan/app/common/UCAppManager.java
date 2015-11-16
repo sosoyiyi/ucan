@@ -1,16 +1,4 @@
-/*
- *  Copyright (c) 2015 The CCP project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a Beijing Speedtong Information Technology Co.,Ltd license
- *  that can be found in the LICENSE file in the root of the web site.
- *
- *   http://www.yuntongxun.com
- *
- *  An additional intellectual property rights grant can be found
- *  in the file PATENTS.  All contributing project authors may
- *  be found in the AUTHORS file in the root of the source tree.
- */package com.ucan.app.common;
-
+package com.ucan.app.common;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,19 +7,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.app.common.enums.UCPreferenceSettings;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.ucan.app.R;
+import com.ucan.app.R.color;
 import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.common.utils.LogUtil;
-import com.ucan.app.common.utils.UCPreferenceSettings;
 import com.ucan.app.common.utils.UCPreferences;
 import com.ucan.app.ui.base.BaseActivity;
 
-/**
- *
- */
 public class UCAppManager {
 
 	public static Md5FileNameGenerator md5FileNameGenerator = new Md5FileNameGenerator();
@@ -46,7 +34,6 @@ public class UCAppManager {
 	public static final String USER_DATA = "ucan.app";
 	public static HashMap<String, Integer> mPhotoCache = new HashMap<String, Integer>();
 	public static ArrayList<BaseActivity> activities = new ArrayList<BaseActivity>();
-
 	public static String getPackageName() {
 		return pkgName;
 	}

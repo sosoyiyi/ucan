@@ -274,12 +274,6 @@ public class CircularImage extends ImageView {
         mFlagTextPaint
                 .setTextSize(getResources().getDisplayMetrics().density * 18);
  
-        mSweepGradient = new SweepGradient(getWidth() / 2, getHeight() / 2,
-                new int[] { Color.rgb(111, 111, 111), Color.rgb(1, 209, 255) },
-                null);
- 
-        mBorderPaint.setShader(mSweepGradient);
- 
         updateShaderMatrix();
         invalidate();
     }
