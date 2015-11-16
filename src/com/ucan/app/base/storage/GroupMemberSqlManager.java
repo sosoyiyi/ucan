@@ -306,7 +306,7 @@ public class GroupMemberSqlManager extends AbstractSQLManager {
             ECGroupMember groupMember = new ECGroupMember();
             groupMember.setBelong(groupId);
             groupMember.setVoipAccount(member);
-            if(UCAppManager.getClientUser() != null && UCAppManager.getClientUser().getAccountId().equals(member)) {
+            if(UCAppManager.getClientUser() != null && UCAppManager.getUserId().equals(member)) {
                 groupMember.setRole(1);
             } else {
                 groupMember.setRole(3);

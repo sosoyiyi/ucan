@@ -319,7 +319,7 @@ public class GroupService {
         // 构建群组参数
         ECGroup group = new ECGroup();
         // 设置群组名称
-        group.setName(UCAppManager.getClientUser().getAccountId() + PRICATE_CHATROOM);
+        group.setName(UCAppManager.getUserId() + PRICATE_CHATROOM);
         // 设置群组公告
         group.setDeclare("");
         // 设置群组类型，如：临时群组（100人）
@@ -327,7 +327,7 @@ public class GroupService {
         // 设置群组验证权限，如：需要身份验证2
         group.setPermission(ECGroup.Permission.NEED_AUTH);
         // 设置群组创建者（可以不设置，服务器默认接口调用者为创建者）
-        group.setOwner(UCAppManager.getClientUser().getAccountId());
+        group.setOwner(UCAppManager.getUserId());
 
         getGroupManager();
         getInstance().mGroupManager.createGroup(group, new ECGroupManager.OnCreateGroupListener() {

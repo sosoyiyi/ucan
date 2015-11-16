@@ -501,7 +501,7 @@ public class GroupNoticeHelper {
             	
             	verifyMsg = "群成员[" + quitMsg.getNickName() + "]退出了群组";
             }
-            if(UCAppManager.getClientUser().getAccountId().equals(quitMsg.getMember())) {
+            if(UCAppManager.getUserId().equals(quitMsg.getMember())) {
                 IMessageSqlManager.deleteAllBySession(instanceMsg.getGroupId());
             }
 			groupNotice.setMember(quitMsg.getMember());

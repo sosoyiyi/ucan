@@ -115,7 +115,7 @@ public abstract class AbstractSQLManager {
 
         private AbstractSQLManager mAbstractSQLManager;
         public DatabaseHelper(Context context, AbstractSQLManager manager ,int version) {
-            this(context, manager , UCAppManager.getClientUser().getAccountId() + "_" + DATABASE_NAME, null, version);
+            this(context, manager , UCAppManager.getUserId() + "_" + DATABASE_NAME, null, version);
         }
 
         public DatabaseHelper(Context context, AbstractSQLManager manager , String name,

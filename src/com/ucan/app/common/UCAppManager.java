@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.GetChars;
 import android.text.TextUtils;
 
 import com.app.common.enums.UCPreferenceSettings;
@@ -97,7 +98,7 @@ public class UCAppManager {
 	 * 
 	 * @return
 	 */
-	public static ClientUser getClientUser() {
+	public  static ClientUser getClientUser() {
 		if (mClientUser != null) {
 			return mClientUser;
 		}
@@ -207,4 +208,5 @@ public class UCAppManager {
 	public static void removePref(String key) {
 		prefValues.remove(key);
 	}
+	
 }
