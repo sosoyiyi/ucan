@@ -49,7 +49,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/login_singin"
+            android:id="@+id/login_signin"
             style="@style/FormButtonView"
             android:layout_marginTop="50.0dip"
             android:enabled="false"
@@ -64,7 +64,7 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/login_register"
+            android:id="@+id/login_signup"
             style="@style/FormButtonView"
             android:enabled="false"
             android:text="@string/login_register" >

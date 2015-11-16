@@ -18,7 +18,6 @@ import com.ucan.app.base.storage.GroupNoticeSqlManager;
 import com.ucan.app.common.UCAppManager;
 import com.ucan.app.ui.Launcher.LauncherActivity;
 import com.yuntongxun.ecsdk.ECMessage;
-import com.yuntongxun.ecsdk.ECVoIPCallManager;
 
 
 /**

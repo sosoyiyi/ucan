@@ -47,7 +47,6 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 	private Context mContext;
 	private ECDevice.ECConnectState mConnect = ECDevice.ECConnectState.CONNECT_FAILED;
 	private ECInitParams mInitParams;
-	private ECInitParams.LoginMode mMode = ECInitParams.LoginMode.FORCE_LOGIN;
 	/** 初始化错误 */
 	public static final int ERROR_CODE_INIT = -3;
 
@@ -100,7 +99,6 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 		getInstance().mKickOff = false;
 		LogUtil.d(TAG, "[init] start regist..");
 		ctx = UCApplication.getInstance().getApplicationContext();
-		getInstance().mMode = mode;
 		getInstance().mContext = ctx;
 		// 判断SDK是否已经初始化，没有初始化则先初始化SDK
 		if (!ECDevice.isInitialized()) {
@@ -133,8 +131,8 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 		// appToken
 		mInitParams.setToken(FileAccessor.getAppToken());
 		// ECInitParams.LoginMode.FORCE_LOGIN
-		mInitParams.setMode(getInstance().mMode);
-
+		mInitParams.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
+		
 		// 如果有密码（VoIP密码，对应的登陆验证模式是）
 		// ECInitParams.LoginAuthType.PASSWORD_AUTH
 		if (!TextUtils.isEmpty(clientUser.getPassword())) {
@@ -143,7 +141,7 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 
 		// 设置登陆验证模式（是否验证密码/如VoIP方式登陆）
 		if (clientUser.getLoginAuthType() != null) {
-			mInitParams.setAuthType(clientUser.getLoginAuthType());
+			mInitParams.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
 		}
 
 		if (!mInitParams.validate()) {

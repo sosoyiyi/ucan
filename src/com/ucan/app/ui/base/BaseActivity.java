@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.ucan.app.common.view.SystemBarTintManager;
 import com.ucan.app.core.SDKCoreHelper;
@@ -27,7 +30,19 @@ public class BaseActivity extends Activity {
 						WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
 								| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
 	}
-
+	  /**
+     * hide inputMethod
+     */
+    public void hideSoftKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(inputMethodManager != null ) {
+            View localView = this.getCurrentFocus();
+            if(localView != null && localView.getWindowToken() != null ) {
+                IBinder windowToken = localView.getWindowToken();
+                inputMethodManager.hideSoftInputFromWindow(windowToken, 0);
+            }
+        }
+    }
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

@@ -149,14 +149,14 @@ public class ContactLogic {
         return beas;
     }
 
-//    public static ArrayList<UCContacts> initContacts() {
-//        ArrayList<UCContacts> list = new ArrayList<UCContacts>();
-//        UCContacts contacts = new UCContacts("KF4008818600668603");
-//        contacts.setNickname(UCAppManager.getContext().getString(R.string.main_plus_mcmessage));
-//        contacts.setRemark(CONVER_PHONTO[0]);
-//        list.add(contacts);
-//        return list;
-//    }
+    public static ArrayList<UCContacts> initContacts() {
+        ArrayList<UCContacts> list = new ArrayList<UCContacts>();
+        UCContacts contacts = new UCContacts("KF4008818600668603");
+        contacts.setNickname(UCAppManager.getContext().getString(R.string.main_plus_mcmessage));
+        contacts.setRemark(CONVER_PHONTO[0]);
+        list.add(contacts);
+        return list;
+    }
 
     /**
      * 是否在线客服

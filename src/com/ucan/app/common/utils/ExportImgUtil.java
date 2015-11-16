@@ -1,13 +1,13 @@
 package com.ucan.app.common.utils;
 
+import java.io.File;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-
-import java.io.File;
 
 /**
  * com.yuntongxun.ecdemo.common.utils in ECDemo_Android

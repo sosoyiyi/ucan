@@ -36,5 +36,7 @@
     <string name="voip_not_wifi_warnning_message">在移动网络环境下会影响视频和音频质量，并产生手机流量。</string>
     <string name="load_failed_network">当前网络不可用,请检查你的网络设置。</string>
     <string name="login_posting_submit">正在提交，请稍候</string>
+    <string name="main_plus_mcmessage">在线客服</string>
+    <string name="login_posting">正在登录，请稍候</string>
 
 </resources>

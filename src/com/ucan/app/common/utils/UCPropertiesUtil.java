@@ -12,11 +12,11 @@
  */
 package com.ucan.app.common.utils;
 
-import android.content.Context;
-
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.Properties;
+
+import android.content.Context;
 
 /**
  * 读取头像合成所需要的坐标体系

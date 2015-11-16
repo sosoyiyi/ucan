@@ -2,7 +2,7 @@ package com.ucan.app.common.http;
 
 public class AsyncServerConfig {
 	static {
-		System.loadLibrary("config");
+		System.loadLibrary("base");
 	}
 
 	public static native String asyncServer();

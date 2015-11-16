@@ -11,8 +11,6 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */package com.ucan.app.common.utils;
 
-import android.util.Log;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,6 +20,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.util.Log;
 
 /**
  * ECDemo 日志打印工具类
