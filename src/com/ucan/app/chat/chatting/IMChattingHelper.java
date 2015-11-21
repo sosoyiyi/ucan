@@ -523,6 +523,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 	@Override
 	public void onOfflineMessageCount(int count) {
 		mHistoryMsgCount = count;
+		LogUtil.e("count",String.valueOf(count));
 	}
 
 	@Override
@@ -538,7 +539,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 		// 离线消息的处理可以参考 void OnReceivedMessage(ECMessage msg)方法
 		// 处理逻辑完全一样
 		// 参考 IMChattingHelper.java
-		LogUtil.d(TAG, "[onReceiveOfflineMessage] show notice false");
+		LogUtil.e(TAG, "[onReceiveOfflineMessage] show notice false");
 		if (msgs != null && !msgs.isEmpty() && !isFirstSync)
 			isFirstSync = true;
 		for (ECMessage msg : msgs) {

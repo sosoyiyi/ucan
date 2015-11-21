@@ -49,11 +49,8 @@ import com.ucan.app.common.view.PhotoBitmapDrawable;
 import com.yuntongxun.ecsdk.ECDeviceType;
 import com.yuntongxun.ecsdk.ECNetworkType;
 
-/**
- * Created by Jorstin on 2015/3/18.
- */
 public class VeryUtils {
-	public static final String TAG = "ECDemo.VeryUtils";
+	public static final String TAG = "UCAN.VeryUtils";
 	private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
 	public static boolean inNativeAllocAccessError = false;
 	/** 当前SDK版本号 */

@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight=".5"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
@@ -23,8 +23,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
+        android:divider="@drawable/spacer_medium"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:showDividers="middle" >
 
         <com.ucan.app.common.view.DefineInputView
             android:id="@+id/login_mobile"
@@ -33,12 +35,6 @@
             android:drawableStart="@drawable/mobile"
             android:hint="@string/login_input_mobile"
             android:inputType="phone" />
-
-        <View
-            android:layout_width="@dimen/LoginInputWidth"
-            android:layout_height="1px"
-            android:background="@color/white" >
-        </View>
 
         <com.ucan.app.common.view.DefineInputView
             android:id="@+id/login_password"
@@ -51,7 +47,6 @@
         <Button
             android:id="@+id/login_signin"
             style="@style/FormButtonView"
-            android:layout_marginTop="50.0dip"
             android:enabled="false"
             android:text="@string/login_singin" >
         </Button>
@@ -66,7 +61,6 @@
         <Button
             android:id="@+id/login_signup"
             style="@style/FormButtonView"
-            android:enabled="false"
             android:text="@string/login_register" >
         </Button>
     </LinearLayout>

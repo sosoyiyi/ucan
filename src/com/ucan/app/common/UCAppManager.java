@@ -69,7 +69,7 @@ public class UCAppManager {
 	public static void sendRemoveMemberBR() {
 
 		getContext().sendBroadcast(
-				new Intent("com.yuntongxun.ecdemo.removemember"));
+				new Intent("com.ucan.app.removemember"));
 	}
 
 	/**

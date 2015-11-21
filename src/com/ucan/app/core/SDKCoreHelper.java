@@ -20,7 +20,7 @@ import com.ucan.app.common.utils.FileAccessor;
 import com.ucan.app.common.utils.LogUtil;
 import com.ucan.app.common.utils.UCNotificationManager;
 import com.ucan.app.common.utils.UCPreferences;
-import com.ucan.app.ui.Launcher.LauncherActivity;
+import com.ucan.app.ui.launcher.LauncherActivity;
 import com.yuntongxun.ecsdk.ECChatManager;
 import com.yuntongxun.ecsdk.ECDeskManager;
 import com.yuntongxun.ecsdk.ECDevice;
@@ -39,7 +39,7 @@ import com.yuntongxun.ecsdk.meeting.video.ECVideoMeetingMsg;
 public class SDKCoreHelper implements ECDevice.InitListener,
 		ECDevice.OnECDeviceConnectListener, ECDevice.OnLogoutListener {
 
-	public static final String TAG = "SDKCoreHelper";
+	public static final String TAG = "UCAN.SDKCoreHelper";
 	public static final String ACTION_LOGOUT = "com.ucan.app_logout";
 	public static final String ACTION_SDK_CONNECT = "com.ucan.app.intent_Action_SDK_CONNECT";
 	public static final String ACTION_KICK_OFF = "com.ucan.app.intent_ACTION_KICK_OFF";
@@ -92,10 +92,6 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 	}
 
 	public static void init(Context ctx) {
-		init(ctx, ECInitParams.LoginMode.AUTO);
-	}
-
-	public static void init(Context ctx, ECInitParams.LoginMode mode) {
 		getInstance().mKickOff = false;
 		LogUtil.d(TAG, "[init] start regist..");
 		ctx = UCApplication.getInstance().getApplicationContext();
@@ -130,43 +126,26 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 		mInitParams.setAppKey(FileAccessor.getAppKey());
 		// appToken
 		mInitParams.setToken(FileAccessor.getAppToken());
-		// ECInitParams.LoginMode.FORCE_LOGIN
+		LogUtil.e("UserId" + clientUser.getAccountId());
+		LogUtil.e("ak：" + FileAccessor.getAppKey());
+		LogUtil.e("at：" + FileAccessor.getAppToken());
 		mInitParams.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
-		
-		// 如果有密码（VoIP密码，对应的登陆验证模式是）
-		// ECInitParams.LoginAuthType.PASSWORD_AUTH
-		if (!TextUtils.isEmpty(clientUser.getPassword())) {
-			mInitParams.setPwd(clientUser.getPassword());
-		}
-
-		// 设置登陆验证模式（是否验证密码/如VoIP方式登陆）
-		if (clientUser.getLoginAuthType() != null) {
-			mInitParams.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
-		}
-
+		mInitParams.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
 		if (!mInitParams.validate()) {
-			// ToastUtil.showMessage(R.string.regist_params_error);
+			LogUtil.e("mInitParams.validate",
+					String.valueOf(mInitParams.validate()));
 			Intent intent = new Intent(ACTION_SDK_CONNECT);
 			intent.putExtra("error", -1);
 			mContext.sendBroadcast(intent);
 			return;
 		}
-
-		// 设置接收VoIP来电事件通知Intent
-		// 呼入界面activity、开发者需修改该类
-		// Intent intent = new Intent(getInstance().mContext,
-		// VoIPCallActivity.class);
-		// PendingIntent pendingIntent = PendingIntent.getActivity(
-		// getInstance().mContext, 0, intent,
-		// PendingIntent.FLAG_UPDATE_CURRENT);
-		// mInitParams.setPendingIntent(pendingIntent);
+		// 定义了全局消息接收回调
+		mInitParams.setOnChatReceiveListener(IMChattingHelper.getInstance());
 
 		// 设置SDK注册结果回调通知，当第一次初始化注册成功或者失败会通过该引用回调
 		// 通知应用SDK注册状态
 		// 当网络断开导致SDK断开连接或者重连成功也会通过该设置回调
-		mInitParams.setOnChatReceiveListener(IMChattingHelper.getInstance());
 		mInitParams.setOnDeviceConnectListener(this);
-
 		if (ECDevice.getECMeetingManager() != null) {
 			ECDevice.getECMeetingManager().setOnMeetingListener(
 					MeetingMsgReceiver.getInstance());
@@ -245,10 +224,12 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 	 * 状态通知
 	 */
 	private static void postConnectNotify() {
-		/*if (getInstance().mContext instanceof LauncherActivity) {
+
+		if (getInstance().mContext instanceof LauncherActivity) {
 			((LauncherActivity) getInstance().mContext)
 					.onNetWorkNotify(getConnectState());
-		}*/
+		}
+
 	}
 
 	public static void logout() {
@@ -258,14 +239,12 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 
 	public static void release() {
 		getInstance().mKickOff = false;
-		/*IMChattingHelper.getInstance().destroy();
-		ContactSqlManager.reset();
-		ConversationSqlManager.reset();
-		GroupMemberSqlManager.reset();
-		GroupNoticeSqlManager.reset();
-		GroupSqlManager.reset();
-		IMessageSqlManager.reset();
-		ImgInfoSqlManager.reset();*/
+		/*
+		 * IMChattingHelper.getInstance().destroy(); ContactSqlManager.reset();
+		 * ConversationSqlManager.reset(); GroupMemberSqlManager.reset();
+		 * GroupNoticeSqlManager.reset(); GroupSqlManager.reset();
+		 * IMessageSqlManager.reset(); ImgInfoSqlManager.reset();
+		 */
 	}
 
 	/**

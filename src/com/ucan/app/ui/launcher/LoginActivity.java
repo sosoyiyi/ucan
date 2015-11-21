@@ -1,4 +1,4 @@
-package com.ucan.app.ui.Launcher;
+package com.ucan.app.ui.launcher;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
@@ -51,7 +51,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if (!TextUtils.isEmpty(mobileInput.getText())
 				&& !TextUtils.isEmpty(pwdInput.getText())) {
-			ToastUtil.showMessage("111");
 			signInBtn.setEnabled(true);
 		} else {
 			signInBtn.setEnabled(false);
@@ -74,7 +73,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 		setContentView(R.layout.activity_login);
 		setTranslucentStatus();
 		cover_user_photo = (CircularImage) findViewById(R.id.cover_user_photo);
-		cover_user_photo.setBorderWidth(4);
+		cover_user_photo.setBorderWidth(1);
 		cover_user_photo.setBorderColor(getResources().getColor(
 				R.color.user_level3_Gold));
 		cover_user_photo.setImageResource(R.drawable.user_photo);
@@ -91,7 +90,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 	}
 
 	NetCallBack cb = new NetCallBack() {
-
 		@Override
 		public void httpSuccess(int arg0, Header[] arg1, byte[] arg2) {
 			String statuCode = ResponseUtil.getStatuCode(new String(arg2));
@@ -115,9 +113,19 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 		@Override
 		public void httpFailure(int arg0, Header[] arg1, byte[] arg2,
 				Throwable arg3) {
-			ToastUtil.showMessage("无法连接服务器");
+			//ToastUtil.showMessage("无法连接服务器");
 			mPostingdialog.dismiss();
 			arg3.printStackTrace();
+			try {
+				saveAccount();
+			} catch (InvalidClassException e) {
+				e.printStackTrace();
+			}
+			Intent intent = new Intent(ctx, LauncherActivity.class);
+			intent.putExtra("launcher_from", 1);
+			// 注册成功跳转
+			startActivity(intent);
+			finish();
 		}
 
 	};
@@ -126,7 +134,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.login_signin:
-			ToastUtil.showMessage("ahh");
 			hideSoftKeyboard();
 			account = mobileInput.getText().toString().trim();
 			password = pwdInput.getText().toString().trim();
@@ -135,7 +142,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 			UCAccountManager.isEffectiveUser(account, password, cb);
 			break;
 		case R.id.login_signup:
-			ToastUtil.showMessage("ahh1");
 			break;
 		default:
 			break;

@@ -1,20 +1,19 @@
 package com.ucan.app.ui;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.R;
+import com.ucan.app.common.UCAppManager;
+import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.common.utils.ToastUtil;
-import com.ucan.app.common.utils.UCPreferences;
-import com.ucan.app.ui.Launcher.LauncherActivity;
-import com.ucan.app.ui.Launcher.LoginActivity;
 import com.ucan.app.ui.base.BaseActivity;
+import com.ucan.app.ui.launcher.LauncherActivity;
+import com.ucan.app.ui.launcher.LoginActivity;
 import com.yuntongxun.ecsdk.platformtools.ECHandlerHelper;
 
 public class Splash extends BaseActivity implements View.OnClickListener {
@@ -69,20 +68,6 @@ public class Splash extends BaseActivity implements View.OnClickListener {
 		}
 
 		return super.dispatchKeyEvent(event);
-	}
-
-	/**
-	 * 检查是否需要自动登录
-	 *
-	 * @return
-	 */
-	private String getAutoRegistAccount() {
-		SharedPreferences sharedPreferences = UCPreferences
-				.getSharedPreferences();
-		UCPreferenceSettings registAuto = UCPreferenceSettings.SETTINGS_REGIST_AUTO;
-		String registAccount = sharedPreferences.getString(registAuto.getId(),
-				(String) registAuto.getDefaultValue());
-		return registAccount;
 	}
 
 	@Override

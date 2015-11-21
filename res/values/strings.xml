@@ -36,7 +36,31 @@
     <string name="voip_not_wifi_warnning_message">在移动网络环境下会影响视频和音频质量，并产生手机流量。</string>
     <string name="load_failed_network">当前网络不可用,请检查你的网络设置。</string>
     <string name="login_posting_submit">正在提交，请稍候</string>
-    <string name="main_plus_mcmessage">在线客服</string>
     <string name="login_posting">正在登录，请稍候</string>
+    <string name="bottom_btn_chatroom">语伴</string>
+    <string name="bottom_btn_practise">活动</string>
+    <string name="top_btn_corner">英语角</string>
+    <string name="top_btn_forone">一对一</string>
+    <string name="bottom_btn_group">圈子</string>
+    <string name="bottom_btn_setting">我的</string>
+    <string name="main_plus_chat">发起会话/群聊</string>
+    <string name="main_plus_groupchat">创建群组</string>
+    <string name="main_plus_querygroup">查找群组</string>
+    <string name="main_plus_mcmessage">在线客服</string>
+    <string name="main_plus_inter_phone">实时对讲</string>
+    <string name="main_plus_meeting_voice">创建语音房间</string>
+    <string name="main_plus_settings">设置</string>
+    <string name="main_plus_meeting_video">创建视频房间</string>
+    <string name="main_plus_search">搜索房间</string>
+    <string name="create_discussion">创建讨论组</string>
+    <string name="query_discussion">获取讨论组</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_update">更新</string>
+    <string name="app_cancel">取消</string>
+    <string name="new_update_version">发现新版本</string>
+    <string name="update_next">下次更新</string>
+    <string name="settings_logout">退出</string>
+    <string name="app_tip">提示</string>
 
 </resources>

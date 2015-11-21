@@ -186,7 +186,6 @@ public class ClientUser implements Parcelable {
 			jsonObject.put("birth", birth);
 			jsonObject.put("pType", pType);
 			jsonObject.put("pVersion", pVersion);
-			jsonObject.put("loginAuthpType", loginAuthType.getAuthTypeValue());
 			return jsonObject.toString();
 		} catch (JSONException e) {
 			e.printStackTrace();

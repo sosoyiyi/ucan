@@ -93,13 +93,18 @@
 
     <style name="FormButtonView">
         <item name="android:orientation">horizontal</item>
-        <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
         <item name="android:layout_width">@dimen/LoginInputWidth</item>
         <item name="android:layout_height">@dimen/SmallListHeight</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text_btn</item>
         <item name="android:textSize">@dimen/size_medium</item>
         <item name="android:background">@drawable/button_bg_selector</item>
+    </style>
+
+    <style name="TopBarButton">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">@dimen/top_bar_btn_width</item>
+        <item name="android:layout_height">@dimen/top_bar_btn_height</item>
+        <item name="android:textSize">@dimen/size_tiny</item>
     </style>
 
 </resources>

@@ -16,7 +16,7 @@ import com.ucan.app.R;
 import com.ucan.app.base.storage.ConversationSqlManager;
 import com.ucan.app.base.storage.GroupNoticeSqlManager;
 import com.ucan.app.common.UCAppManager;
-import com.ucan.app.ui.Launcher.LauncherActivity;
+import com.ucan.app.ui.launcher.LauncherActivity;
 import com.yuntongxun.ecsdk.ECMessage;
 
 

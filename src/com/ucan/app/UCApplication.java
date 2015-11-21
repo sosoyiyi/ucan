@@ -1,9 +1,13 @@
 package com.ucan.app;
 
 import java.io.File;
+import java.io.InvalidClassException;
 
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
+import com.app.common.enums.UCPreferenceSettings;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -12,7 +16,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.ucan.app.common.UCAppManager;
+import com.ucan.app.common.utils.CrashHandler;
 import com.ucan.app.common.utils.FileAccessor;
+import com.ucan.app.common.utils.LogUtil;
+import com.ucan.app.common.utils.UCPreferences;
 
 public class UCApplication extends Application {
 	private static UCApplication instance;
@@ -24,6 +31,20 @@ public class UCApplication extends Application {
 		UCAppManager.setContext(instance);
 		FileAccessor.initFileAccess();
 		initImageLoader();
+		setChattingContactId();
+		CrashHandler.getInstance().init(this);
+	}
+
+	/**
+	 * 保存当前的聊天界面所对应的联系人、方便来消息屏蔽通知
+	 */
+	private void setChattingContactId() {
+		try {
+			UCPreferences.savePreference(
+					UCPreferenceSettings.SETTING_CHATTING_CONTACTID, "", true);
+		} catch (InvalidClassException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -61,5 +82,38 @@ public class UCApplication extends Application {
 	@Override
 	public void onLowMemory() {
 		super.onLowMemory();
+	}
+
+	public boolean getAlphaSwitch() {
+		try {
+			ApplicationInfo appInfo = getPackageManager().getApplicationInfo(
+					getPackageName(), PackageManager.GET_META_DATA);
+			boolean b = appInfo.metaData.getBoolean("ALPHA");
+			LogUtil.w("[UCApplication - getAlpha] Alpha is: " + b);
+			return b;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	/**
+	 * 返回配置文件的日志开关
+	 * 
+	 * @return
+	 */
+	public boolean getLoggingSwitch() {
+		try {
+			ApplicationInfo appInfo = getPackageManager().getApplicationInfo(
+					getPackageName(), PackageManager.GET_META_DATA);
+			boolean b = appInfo.metaData.getBoolean("LOGGING");
+			LogUtil.w("[UCApplication - getLogging] logging is: " + b);
+			return b;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 }

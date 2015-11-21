@@ -23,5 +23,15 @@
     <dimen name="NormalTextSize">16.0dip</dimen>
     <dimen name="LargerPadding">24.0dip</dimen>
     <dimen name="HintTextSize">14.0dip</dimen>
+    <dimen name="spacing_medium">20.0dip</dimen>
+    <dimen name="actionBarSize">50.0dip</dimen>
+    <dimen name="top_bar_btn_width">60.0dip</dimen>
+    <dimen name="top_bar_btn_height">30.0dip</dimen>
+    <dimen name="popup_menu_item_minHeight">49.0dip</dimen>
+    <dimen name="popup_menu_item_width">220.0dip</dimen>
+    <dimen name="popup_menu_image_margin_left">14.0dip</dimen>
+    <dimen name="popup_menu_image_margin_top">0.0dip</dimen>
+    <dimen name="popup_menu_image_margin_right">12.0dip</dimen>
+    <dimen name="popup_menu_image_margin_bottom">0.0dip</dimen>
 
 </resources>
