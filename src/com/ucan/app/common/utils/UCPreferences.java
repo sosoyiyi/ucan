@@ -11,8 +11,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.UCApplication;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 
 public class UCPreferences {
 

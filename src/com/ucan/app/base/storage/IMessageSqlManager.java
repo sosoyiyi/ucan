@@ -10,7 +10,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.text.TextUtils;
 
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.contacts.ContactLogic;
 import com.ucan.app.common.contacts.UCContacts;
 import com.ucan.app.common.model.ImgInfo;

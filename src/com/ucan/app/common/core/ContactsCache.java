@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.contacts.ContactLogic;
 import com.ucan.app.common.contacts.UCContacts;
 import com.ucan.app.common.model.Phone;

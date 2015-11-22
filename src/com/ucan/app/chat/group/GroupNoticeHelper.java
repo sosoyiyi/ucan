@@ -15,11 +15,11 @@ package com.ucan.app.chat.group;
 
 import android.text.TextUtils;
 
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ContactSqlManager;
 import com.ucan.app.base.storage.GroupNoticeSqlManager;
 import com.ucan.app.base.storage.GroupSqlManager;
 import com.ucan.app.base.storage.IMessageSqlManager;
-import com.ucan.app.common.UCAppManager;
 import com.ucan.app.common.contacts.UCContacts;
 import com.yuntongxun.ecsdk.im.ECGroup;
 import com.yuntongxun.ecsdk.im.group.ECChangeAdminMsg;

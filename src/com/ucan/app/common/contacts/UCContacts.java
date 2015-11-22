@@ -159,7 +159,7 @@ public class UCContacts  implements Parcelable {
 
     public void setClientUser(ClientUser user) {
         setContactid(user.getAccountId());
-        setNickname(user.getNickname());
+        setNickname(user.getNickName());
         setRemark(ContactLogic.CONVER_PHONTO[ContactSqlManager.getIntRandom(4, 0)]);
     }
 

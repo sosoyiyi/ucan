@@ -19,7 +19,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.contacts.UCContacts;
 import com.yuntongxun.ecsdk.im.ECGroupMember;
 

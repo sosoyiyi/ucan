@@ -9,12 +9,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.UCApplication;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.chat.chatroom.MeetingMsgReceiver;
 import com.ucan.app.chat.chatroom.VideoconferenceBaseActivity;
 import com.ucan.app.chat.chatting.IMChattingHelper;
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.common.utils.FileAccessor;
 import com.ucan.app.common.utils.LogUtil;
@@ -126,14 +126,9 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 		mInitParams.setAppKey(FileAccessor.getAppKey());
 		// appToken
 		mInitParams.setToken(FileAccessor.getAppToken());
-		LogUtil.e("UserId" + clientUser.getAccountId());
-		LogUtil.e("ak：" + FileAccessor.getAppKey());
-		LogUtil.e("at：" + FileAccessor.getAppToken());
 		mInitParams.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
 		mInitParams.setAuthType(ECInitParams.LoginAuthType.NORMAL_AUTH);
 		if (!mInitParams.validate()) {
-			LogUtil.e("mInitParams.validate",
-					String.valueOf(mInitParams.validate()));
 			Intent intent = new Intent(ACTION_SDK_CONNECT);
 			intent.putExtra("error", -1);
 			mContext.sendBroadcast(intent);

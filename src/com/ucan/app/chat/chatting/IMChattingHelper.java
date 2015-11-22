@@ -1,3 +1,4 @@
+ 
 package com.ucan.app.chat.chatting;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 
-import com.app.common.enums.UCPreferenceSettings;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ContactSqlManager;
 import com.ucan.app.base.storage.GroupNoticeSqlManager;
 import com.ucan.app.base.storage.GroupSqlManager;
@@ -19,8 +20,8 @@ import com.ucan.app.base.storage.IMessageSqlManager;
 import com.ucan.app.base.storage.ImgInfoSqlManager;
 import com.ucan.app.chat.group.GroupNotice;
 import com.ucan.app.chat.group.GroupNoticeHelper;
-import com.ucan.app.common.UCAppManager;
 import com.ucan.app.common.contacts.UCContacts;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.common.model.ImgInfo;
 import com.ucan.app.common.utils.DateUtil;
@@ -49,11 +50,16 @@ import com.yuntongxun.ecsdk.im.ECVideoMessageBody;
 import com.yuntongxun.ecsdk.im.ECVoiceMessageBody;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
 
+/**
+ * @author Jorstin Chan@容联•云通讯
+ * @date 2014-12-12
+ * @version 4.0
+ */
 public class IMChattingHelper implements OnChatReceiveListener,
 		ECChatManager.OnDownloadMessageListener {
 
-	private static final String TAG = "UCAN.IMChattingHelper";
-	public static final String INTENT_ACTION_SYNC_MESSAGE = "com.ucan.app.intent._sync_message";
+	private static final String TAG = "ECSDK_Demo.IMChattingHelper";
+	public static final String INTENT_ACTION_SYNC_MESSAGE = "com.yuntongxun.ecdemo_sync_message";
 	public static final String GROUP_PRIVATE_TAG = "@priategroup.com";
 	private static HashMap<String, SyncMsgEntry> syncMessage = new HashMap<String, SyncMsgEntry>();
 	private static IMChattingHelper sInstance;
@@ -98,12 +104,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 		ECChatManager manager = getInstance().mChatManager;
 		if (manager != null) {
 			// 调用接口发送IM消息
-			boolean isShowChatName = UCPreferences
-					.getSharedPreferences()
-					.getBoolean(
-							UCPreferenceSettings.SETTINGS_SHOW_CHATTING_NAME
-									.getId(),
-							false);
+			boolean isShowChatName = UCPreferences.getSharedPreferences().getBoolean(UCPreferenceSettings.SETTINGS_SHOW_CHATTING_NAME.getId(), false);
 			msg.setMsgTime(System.currentTimeMillis());
 			manager.sendMessage(msg, getInstance().mListener);
 			// 保存发送的消息到数据库
@@ -141,12 +142,11 @@ public class IMChattingHelper implements OnChatReceiveListener,
 		if (manager != null) {
 			// 调用接口发送IM消息
 			String oldMsgId = msg.getMsgId();
-
-			if (msg.getType() == Type.IMAGE
-					&& IMessageSqlManager.isFireMsg(oldMsgId)) {
+			
+			if(msg.getType()==Type.IMAGE&&IMessageSqlManager.isFireMsg(oldMsgId)){
 				msg.setUserData("fireMessage");
 			}
-
+			
 			manager.sendMessage(msg, getInstance().mListener);
 			if (msg.getType() == ECMessage.Type.IMAGE) {
 				ImgInfo imgInfo = ImgInfoSqlManager.getInstance().getImgInfo(
@@ -177,11 +177,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 	public static long sendImageMessage(ImgInfo imgInfo, ECMessage message) {
 		ECChatManager manager = getInstance().mChatManager;
 		if (manager != null) {
-			// 调用接口发送IM消息，阅后即焚消息
-			/*
-			 * if(ChattingFragment.isFireMsg||IMessageSqlManager.isFireMsg(message
-			 * .getMsgId())){ message.setUserData("fireMessage"); }
-			 */
+			// 调用接口发送IM消息
 			manager.sendMessage(message, getInstance().mListener);
 
 			if (TextUtils.isEmpty(message.getMsgId())) {
@@ -196,7 +192,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 					+ message.getMsgId() + ",PICGIF://" + imgInfo.isGif);
 			long row = IMessageSqlManager.insertIMessage(message,
 					ECMessage.Direction.SEND.ordinal());
-
+			
 			if (row != -1) {
 				return ImgInfoSqlManager.getInstance().insertImageInfo(imgInfo);
 			}
@@ -224,7 +220,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 									&& p != null) {
 								clientUser.setpVersion(p.getVersion());
 								clientUser.setSex(p.getSex().ordinal() + 1);
-								clientUser.setNickname(p.getNickName());
+								clientUser.setNickName(p.getNickName());
 								clientUser.setSignature(p.getSign());
 								if (!TextUtils.isEmpty(p.getBirth())) {
 									clientUser.setBirth(DateUtil
@@ -294,7 +290,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 
 	public interface OnMessageReportCallback {
 		void onMessageReport(ECError error, ECMessage message);
-
+		
 		void onPushMessage(String sessionId, List<ECMessage> msgs);
 	}
 
@@ -333,7 +329,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 				boolean thumbnail = false;
 				String fileExt = VeryUtils
 						.getExtensionName(body.getRemoteUrl());
-				LogUtil.e(TAG, "fileSize " + body.getLength());
+				LogUtil.e(TAG , "fileSize " + body.getLength());
 				if (msg.getType() == ECMessage.Type.VOICE) {
 					body.setLocalUrl(new File(FileAccessor.getVoicePathName(),
 							VeryUtils.md5(String.valueOf(System
@@ -352,7 +348,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 
 					if (msg.getBody() instanceof ECVideoMessageBody) {
 						ECVideoMessageBody videoBody = (ECVideoMessageBody) body;
-
+						
 						thumbnail = !TextUtils.isEmpty(videoBody
 								.getThumbnailUrl());
 						StringBuilder builder = new StringBuilder(
@@ -386,14 +382,13 @@ public class IMChattingHelper implements OnChatReceiveListener,
 					body.setFileName(FileAccessor.getFileName(body
 							.getRemoteUrl()));
 				}
-				if (msg.getType() == Type.IMAGE
-						&& msg.getDirection() == Direction.RECEIVE) {
+				if(msg.getType()==Type.IMAGE&&msg.getDirection()==Direction.RECEIVE){
 					msg.setUserData(msg.getUserData());
-				} else {
+				}else {
 					msg.setUserData("fileName=" + body.getFileName());
-
+					
 				}
-
+				
 				if (IMessageSqlManager.insertIMessage(msg, msg.getDirection()
 						.ordinal()) > 0) {
 					return;
@@ -416,7 +411,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 
 		// 是否状态栏提示
 		if (showNotice)
-
+			
 			showNotification(msg);
 	}
 
@@ -523,7 +518,6 @@ public class IMChattingHelper implements OnChatReceiveListener,
 	@Override
 	public void onOfflineMessageCount(int count) {
 		mHistoryMsgCount = count;
-		LogUtil.e("count",String.valueOf(count));
 	}
 
 	@Override
@@ -539,7 +533,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 		// 离线消息的处理可以参考 void OnReceivedMessage(ECMessage msg)方法
 		// 处理逻辑完全一样
 		// 参考 IMChattingHelper.java
-		LogUtil.e(TAG, "[onReceiveOfflineMessage] show notice false");
+		LogUtil.d(TAG, "[onReceiveOfflineMessage] show notice false");
 		if (msgs != null && !msgs.isEmpty() && !isFirstSync)
 			isFirstSync = true;
 		for (ECMessage msg : msgs) {
@@ -550,6 +544,7 @@ public class IMChattingHelper implements OnChatReceiveListener,
 
 	@Override
 	public void onReceiveOfflineMessageCompletion() {
+		LogUtil.e("message",String.valueOf(mOfflineMsg == null));
 		if (mOfflineMsg == null) {
 			return;
 		}
@@ -614,11 +609,11 @@ public class IMChattingHelper implements OnChatReceiveListener,
 
 			if (message.getType() == Type.VIDEO
 					&& mOnMessageReportCallback != null
-					&& message.getDirection() == Direction.RECEIVE
-			/* && mOnMessageReportCallback instanceof ChattingFragment */) {
+					&& message.getDirection()==Direction.RECEIVE
+					/*&& mOnMessageReportCallback instanceof ChattingFragment*/) {
 
-				// ((ChattingFragment) mOnMessageReportCallback)
-				// .dismissPostingDialog();
+				/*((ChattingFragment) mOnMessageReportCallback)
+						.dismissPostingDialog();*/
 			}
 
 		} else {
@@ -735,15 +730,15 @@ public class IMChattingHelper implements OnChatReceiveListener,
 
 	@Override
 	public void onReceiveMessageNotify(ECMessageNotify msg) {
-		if (msg.getNotifyType() == NotifyType.DELETE) {
-			ECMessageDeleteNotify deleteMsg = (ECMessageDeleteNotify) msg;
+		if(msg.getNotifyType()==NotifyType.DELETE){
+			ECMessageDeleteNotify deleteMsg=(ECMessageDeleteNotify) msg;
 			IMessageSqlManager.updateMsgReadStatus(msg.getMsgId(), true);
 			IMessageSqlManager.deleteLocalFileAfterFire(msg.getMsgId());
 			if (mOnMessageReportCallback != null) {
 				mOnMessageReportCallback.onMessageReport(null, null);
-			}
+			}	
 		}
-
+		
 	}
 
 }

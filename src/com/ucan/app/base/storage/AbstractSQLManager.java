@@ -18,7 +18,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ucan.app.UCApplication;
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.utils.LogUtil;
 import com.yuntongxun.ecsdk.ECMessage;
 

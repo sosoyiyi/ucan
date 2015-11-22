@@ -25,9 +25,9 @@ import android.text.TextUtils;
 
 import com.ucan.app.R;
 import com.ucan.app.UCApplication;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ContactSqlManager;
 import com.ucan.app.base.storage.GroupMemberSqlManager;
-import com.ucan.app.common.UCAppManager;
 import com.ucan.app.common.core.PyComparator;
 import com.ucan.app.common.core.UCArrayLists;
 import com.ucan.app.common.model.Phone;

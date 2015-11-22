@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.yuntongxun.ecsdk.im.ECGroup;
 
 public class GroupSqlManager extends AbstractSQLManager {

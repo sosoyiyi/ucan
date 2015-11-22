@@ -35,7 +35,7 @@ public class ClientUser implements Parcelable {
 	/**
 	 * 昵称
 	 */
-	private String nickname = "";
+	private String nickName = "";
 	/**
 	 * 0-Female <br/>
 	 * 1-Male
@@ -125,12 +125,12 @@ public class ClientUser implements Parcelable {
 		this.birth = birth;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public int getSex() {
@@ -164,7 +164,7 @@ public class ClientUser implements Parcelable {
 	private ClientUser(Parcel in) {
 
 		this.accountId = in.readString();
-		this.nickname = in.readString();
+		this.nickName = in.readString();
 		this.password = in.readString();
 		this.signature = in.readString();
 		this.pVersion = in.readInt();
@@ -180,7 +180,7 @@ public class ClientUser implements Parcelable {
 		try {
 			jsonObject.put("accountId", accountId);
 			jsonObject.put("password", password);
-			jsonObject.put("nickname", nickname);
+			jsonObject.put("nickName", nickName);
 			jsonObject.put("sex", sex);
 			jsonObject.put("signature", signature);
 			jsonObject.put("birth", birth);
@@ -190,7 +190,7 @@ public class ClientUser implements Parcelable {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return "ClientUser{" + "userId='" + id + '\'' + ", accountId='"
+		return "ClientUser{" + "accountId='"
 				+ accountId + '\'' + ", password='" + password + '\'' + '}';
 	}
 
@@ -201,8 +201,8 @@ public class ClientUser implements Parcelable {
 			if (object.has("accountId")) {
 				this.accountId = object.getString("accountId");
 			}
-			if (object.has("nickname")) {
-				this.nickname = object.getString("nickname");
+			if (object.has("nickName")) {
+				this.nickName = object.getString("nickName");
 			}
 			if (object.has("password")) {
 				this.password = object.getString("password");
@@ -241,7 +241,7 @@ public class ClientUser implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(this.accountId);
-		dest.writeString(this.nickname);
+		dest.writeString(this.nickName);
 		dest.writeString(this.signature);
 		dest.writeString(this.password);
 		dest.writeInt(this.sex);

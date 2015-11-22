@@ -44,7 +44,7 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.view.PhotoBitmapDrawable;
 import com.yuntongxun.ecsdk.ECDeviceType;
 import com.yuntongxun.ecsdk.ECNetworkType;

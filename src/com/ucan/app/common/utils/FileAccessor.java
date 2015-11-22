@@ -21,9 +21,9 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.R;
 import com.ucan.app.UCApplication;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 
 /**
  * 文件操作工具类 Created by Eric on 2015/11/11.

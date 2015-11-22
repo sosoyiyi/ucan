@@ -16,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.app.common.enums.UCPreferenceSettings;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.utils.UCPreferences;
 import com.ucan.app.common.view.SystemBarTintManager;
 import com.ucan.app.core.SDKCoreHelper;

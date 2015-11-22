@@ -5,11 +5,11 @@ import java.util.List;
 
 import android.content.Intent;
 
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ContactSqlManager;
 import com.ucan.app.base.storage.GroupMemberSqlManager;
 import com.ucan.app.base.storage.GroupSqlManager;
 import com.ucan.app.base.storage.IMessageSqlManager;
-import com.ucan.app.common.UCAppManager;
 import com.ucan.app.common.utils.LogUtil;
 import com.ucan.app.common.utils.ToastUtil;
 import com.ucan.app.common.utils.VeryUtils;

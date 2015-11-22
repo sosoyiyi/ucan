@@ -7,7 +7,6 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -15,7 +14,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.utils.CrashHandler;
 import com.ucan.app.common.utils.FileAccessor;
 import com.ucan.app.common.utils.LogUtil;
@@ -54,7 +54,8 @@ public class UCApplication extends Application {
 	 */
 	public static UCApplication getInstance() {
 		if (instance == null) {
-		}
+            LogUtil.w("[UCApplication] instance is null.");
+        }
 		return instance;
 	}
 

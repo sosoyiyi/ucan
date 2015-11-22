@@ -6,7 +6,7 @@ import java.util.List;
 
 import android.os.Bundle;
 
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.utils.LogUtil;
 import com.ucan.app.core.SDKCoreHelper;
 import com.yuntongxun.ecsdk.OnMeetingListener;

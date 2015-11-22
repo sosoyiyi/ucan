@@ -11,20 +11,17 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Looper;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.R;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ConversationSqlManager;
 import com.ucan.app.base.storage.GroupNoticeSqlManager;
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.ui.launcher.LauncherActivity;
 import com.yuntongxun.ecsdk.ECMessage;
 
 
 /**
  * 状态栏通知
- * @author Jorstin Chan@容联•云通讯
- * @date 2015-1-4
- * @version 4.0
  */
 public class UCNotificationManager {
 

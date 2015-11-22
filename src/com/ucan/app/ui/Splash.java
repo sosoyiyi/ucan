@@ -1,5 +1,6 @@
 package com.ucan.app.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,9 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ucan.app.R;
-import com.ucan.app.common.UCAppManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.model.ClientUser;
-import com.ucan.app.common.utils.ToastUtil;
+import com.ucan.app.core.SDKCoreHelper;
 import com.ucan.app.ui.base.BaseActivity;
 import com.ucan.app.ui.launcher.LauncherActivity;
 import com.ucan.app.ui.launcher.LoginActivity;
@@ -18,11 +19,20 @@ import com.yuntongxun.ecsdk.platformtools.ECHandlerHelper;
 
 public class Splash extends BaseActivity implements View.OnClickListener {
 	private ImageView view;
+	private String account;
+	private Context ctx;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_activity);
+		ctx = this;
+		account = getAutoRegistAccount();
+		if (!TextUtils.isEmpty(account)) {
+			ClientUser user = new ClientUser("").from(account);
+			UCAppManager.setClientUser(user);
+			SDKCoreHelper.init(ctx);
+		}
 		ECHandlerHelper.postDelayedRunnOnUI(initRunnable, 3000);
 		view = (ImageView) findViewById(R.id.welcome_logo_iv_dest);
 		view.setOnClickListener(this);
@@ -32,7 +42,6 @@ public class Splash extends BaseActivity implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.welcome_logo_iv_dest:
-			ToastUtil.showMessage("你好");
 			break;
 		default:
 			break;
@@ -47,12 +56,15 @@ public class Splash extends BaseActivity implements View.OnClickListener {
 	};
 
 	public void init() {
-		String account = getAutoRegistAccount();
 		if (!TextUtils.isEmpty(account)) {
-			startActivity(new Intent(this, LauncherActivity.class));
+			Intent intent = new Intent(this, LauncherActivity.class);
+			intent.putExtra("launch_from", 0x28);
+			startActivity(intent);
 			finish();
 			return;
 		} else {
+			Intent intent = new Intent(this, LoginActivity.class);
+			intent.putExtra("launch_from", 0x06);
 			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 			return;

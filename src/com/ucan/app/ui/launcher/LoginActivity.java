@@ -14,14 +14,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.R;
 import com.ucan.app.base.manager.UCAccountManager;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ContactSqlManager;
-import com.ucan.app.common.UCAppManager;
 import com.ucan.app.common.contacts.ContactLogic;
 import com.ucan.app.common.contacts.UCContacts;
 import com.ucan.app.common.dialog.UCProgressDialog;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.http.NetCallBack;
 import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.common.utils.ResponseUtil;
@@ -116,16 +116,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 			//ToastUtil.showMessage("无法连接服务器");
 			mPostingdialog.dismiss();
 			arg3.printStackTrace();
-			try {
-				saveAccount();
-			} catch (InvalidClassException e) {
-				e.printStackTrace();
-			}
-			Intent intent = new Intent(ctx, LauncherActivity.class);
-			intent.putExtra("launcher_from", 1);
-			// 注册成功跳转
-			startActivity(intent);
-			finish();
 		}
 
 	};
@@ -139,7 +129,17 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 			password = pwdInput.getText().toString().trim();
 			mPostingdialog = new UCProgressDialog(this, R.string.login_posting);
 			mPostingdialog.show();
-			UCAccountManager.isEffectiveUser(account, password, cb);
+			try {
+				saveAccount();
+			} catch (InvalidClassException e) {
+				e.printStackTrace();
+			}
+			Intent intent = new Intent(ctx, LauncherActivity.class);
+			intent.putExtra("launcher_from", 1);
+			// 注册成功跳转
+			startActivity(intent);
+			finish();
+			/*UCAccountManager.isEffectiveUser(account, password, cb);*/
 			break;
 		case R.id.login_signup:
 			break;
@@ -151,7 +151,6 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 
 	private void saveAccount() throws InvalidClassException {
 		ClientUser user = new ClientUser(account);
-		user.setPassword(password);
 		UCAppManager.setClientUser(user);
 		UCPreferences.savePreference(UCPreferenceSettings.SETTINGS_REGIST_AUTO,
 				user.toString(), true);

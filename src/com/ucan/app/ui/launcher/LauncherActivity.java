@@ -15,16 +15,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 
-import com.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.R;
+import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.IMessageSqlManager;
 import com.ucan.app.chat.chatting.IMChattingHelper;
-import com.ucan.app.common.UCAppManager;
 import com.ucan.app.common.UCContentObservers;
 import com.ucan.app.common.adapter.OverflowAdapter;
 import com.ucan.app.common.adapter.OverflowAdapter.OverflowItem;
 import com.ucan.app.common.dialog.UCAlertDialog;
 import com.ucan.app.common.dialog.UCProgressDialog;
+import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.common.utils.CrashHandler;
 import com.ucan.app.common.utils.LogUtil;
@@ -107,7 +107,6 @@ public class LauncherActivity extends BaseActivity {
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		LogUtil.d(LogUtil.getLogUtilsTag(LauncherActivity.class), " onKeyDown");
-
 		if ((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
 				&& event.getAction() == KeyEvent.ACTION_UP) {
 			// dismiss PlusSubMenuHelper
@@ -241,11 +240,7 @@ public class LauncherActivity extends BaseActivity {
 				return;
 			}
 			LogUtil.d(TAG, "[onReceive] action:" + intent.getAction());
-			if (IMChattingHelper.INTENT_ACTION_SYNC_MESSAGE.equals(intent
-					.getAction())) {
-				disPostingLoading();
-			} else if (SDKCoreHelper.ACTION_SDK_CONNECT.equals(intent
-					.getAction())) {
+			if (SDKCoreHelper.ACTION_SDK_CONNECT.equals(intent.getAction())) {
 				doInitAction();
 				updateConnectState();
 			} else if (SDKCoreHelper.ACTION_KICK_OFF.equals(intent.getAction())) {
@@ -258,7 +253,6 @@ public class LauncherActivity extends BaseActivity {
 	public void updateConnectState() {
 		ECDevice.ECConnectState connect = SDKCoreHelper.getConnectState();
 		if (connect == ECDevice.ECConnectState.CONNECTING) {
-			ToastUtil.showMessage("正在连接");
 		} else if (connect == ECDevice.ECConnectState.CONNECT_FAILED) {
 			ToastUtil.showMessage("连接失败");
 			reTryConnect();
@@ -379,7 +373,6 @@ public class LauncherActivity extends BaseActivity {
 	}
 
 	public void restartAPP() {
-
 		ECDevice.unInitial();
 		Intent intent = new Intent(this, LauncherActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -409,13 +402,11 @@ public class LauncherActivity extends BaseActivity {
 		registerReceiver(new String[] {
 				IMChattingHelper.INTENT_ACTION_SYNC_MESSAGE,
 				SDKCoreHelper.ACTION_SDK_CONNECT });
-		ClientUser user = new ClientUser("").from(getAutoRegistAccount());
-		UCAppManager.setClientUser(user);
-		if (SDKCoreHelper.getConnectState() != ECDevice.ECConnectState.CONNECT_SUCCESS
-				&& !SDKCoreHelper.isKickOff()) {
+		Intent intent = getIntent();
+		if (intent != null && intent.getIntExtra("launcher_from", -1) == 0x06) {
+			// 从Login过来,注册SDK,SDK登陆
 			SDKCoreHelper.init(this);
 		}
-
 		OnUpdateMsgUnreadCounts();
 	}
 
