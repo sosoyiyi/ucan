@@ -18,12 +18,11 @@ import com.yuntongxun.ecsdk.meeting.video.ECVideoMeetingMsg;
 import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
 
 /**
- * 会议消息处理 com.yuntongxun.ecdemo.ui in ECDemo_Android Created by Jorstin on
- * 2015/7/25.
+ * 会议消息处理  
  */
 public class MeetingMsgReceiver implements OnMeetingListener {
 
-	private static final String TAG = "ECSDK_Demo."
+	private static final String TAG = "UCAN.MeetingMsgReceiver"
 			+ MeetingMsgReceiver.class.getSimpleName();
 
 	private static MeetingMsgReceiver ourInstance = new MeetingMsgReceiver();

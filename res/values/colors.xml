@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<color name="contain_fragment_background">#fffbf6f2</color>
     <color name="dialog_background">#fffbf6f2</color>
     <color name="text_content">#ffa19d94</color>
     <color name="blue">#ff169aff</color>
@@ -30,7 +30,7 @@
     <color name="common_bottom_bar_normal_bg">#ffffff</color>
     <color name="bottom_button_text_color">#cdcdcd</color>
     <color name="text_disabled">#ffa8a8a8</color>
-    <item name="menu_pressed_color" type="color">@color/small_line_color</item>
+	    <item name="menu_pressed_color" type="color">@color/small_line_color</item>
 
     <color name="small_line_color">#26000000</color>
     <color name="common_popup_menu_list_divider">#ff191919</color>

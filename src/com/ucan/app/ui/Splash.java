@@ -12,9 +12,9 @@ import com.ucan.app.R;
 import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.common.model.ClientUser;
 import com.ucan.app.core.SDKCoreHelper;
+import com.ucan.app.ui.activity.LoginActivity;
+import com.ucan.app.ui.activity.MainActivity;
 import com.ucan.app.ui.base.BaseActivity;
-import com.ucan.app.ui.launcher.LauncherActivity;
-import com.ucan.app.ui.launcher.LoginActivity;
 import com.yuntongxun.ecsdk.platformtools.ECHandlerHelper;
 
 public class Splash extends BaseActivity implements View.OnClickListener {
@@ -57,14 +57,12 @@ public class Splash extends BaseActivity implements View.OnClickListener {
 
 	public void init() {
 		if (!TextUtils.isEmpty(account)) {
-			Intent intent = new Intent(this, LauncherActivity.class);
+			Intent intent = new Intent(this, MainActivity.class);
 			intent.putExtra("launch_from", 0x28);
 			startActivity(intent);
 			finish();
 			return;
 		} else {
-			Intent intent = new Intent(this, LoginActivity.class);
-			intent.putExtra("launch_from", 0x06);
 			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 			return;

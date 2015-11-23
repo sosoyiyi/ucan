@@ -1,4 +1,4 @@
-package com.ucan.app.ui.launcher;
+package com.ucan.app.ui.activity;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
@@ -99,8 +99,8 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 				} catch (InvalidClassException e) {
 					e.printStackTrace();
 				}
-				Intent intent = new Intent(ctx, LauncherActivity.class);
-				intent.putExtra("launcher_from", 1);
+				Intent intent = new Intent(ctx, MainActivity.class);
+				intent.putExtra("launch_from", 0x06);
 				// 注册成功跳转
 				startActivity(intent);
 				finish();
@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 		@Override
 		public void httpFailure(int arg0, Header[] arg1, byte[] arg2,
 				Throwable arg3) {
-			//ToastUtil.showMessage("无法连接服务器");
+			ToastUtil.showMessage("无法连接服务器");
 			mPostingdialog.dismiss();
 			arg3.printStackTrace();
 		}
@@ -129,17 +129,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 			password = pwdInput.getText().toString().trim();
 			mPostingdialog = new UCProgressDialog(this, R.string.login_posting);
 			mPostingdialog.show();
-			try {
-				saveAccount();
-			} catch (InvalidClassException e) {
-				e.printStackTrace();
-			}
-			Intent intent = new Intent(ctx, LauncherActivity.class);
-			intent.putExtra("launcher_from", 1);
-			// 注册成功跳转
-			startActivity(intent);
-			finish();
-			/*UCAccountManager.isEffectiveUser(account, password, cb);*/
+			UCAccountManager.isEffectiveUser(account, password, cb);
 			break;
 		case R.id.login_signup:
 			break;

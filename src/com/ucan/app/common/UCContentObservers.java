@@ -8,11 +8,6 @@ import android.provider.ContactsContract;
 
 import com.ucan.app.UCApplication;
 import com.ucan.app.common.core.ContactsCache;
-
-/**
- * com.yuntongxun.ecdemo.common in ECDemo_Android
- * Created by Jorstin on 2015/5/22.
- */
 public class UCContentObservers {
 
     private static final int CONTACTS_CHANGED = 300;

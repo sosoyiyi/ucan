@@ -8,14 +8,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-
-/**
- * com.yuntongxun.ecdemo.common.utils in ECDemo_Android
- * Created by Jorstin on 2015/6/6.
- */
+ 
 public class ExportImgUtil {
 
-    private static final String TAG = "ECSDK_Demo.ExportImgUtil";
+    private static final String TAG = "UCAN.ExportImgUtil";
     public static void refreshingMediaScanner(Context context , String pathName) {
         if(TextUtils.isEmpty(pathName)) {
             return ;

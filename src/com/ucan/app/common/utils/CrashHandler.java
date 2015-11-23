@@ -23,13 +23,9 @@ import android.text.format.Time;
 import com.ucan.app.R;
 import com.ucan.app.common.dialog.UCAlertDialog;
 
-/**
- * com.yuntongxun.ecdemo.common.utils in ECDemo_Android
- * Created by Jorstin on 2015/6/17.
- */
 public class CrashHandler  implements Thread.UncaughtExceptionHandler {
 
-    private final static String TAG = "ECSDK_Demo.UncaughtException";
+    private final static String TAG = "UCAN.UncaughtException";
     /** CrashHandler实例 */
     private static CrashHandler ourInstance = new CrashHandler();
     /** 获取CrashHandler实例 ,单例模式 */

@@ -18,13 +18,10 @@ import com.yuntongxun.ecsdk.im.ESpeakStatus;
 
 /**
  * 群组成员同步接口
- * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-29
- * @version 4.0
  */
 public class GroupMemberService {
 
-    public static final String TAG = "GroupMemberService";
+    public static final String TAG = "UCAN.GroupMemberService";
     private static GroupMemberService sInstence;
     public static GroupMemberService getInstance() {
         if(sInstence == null) {

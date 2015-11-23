@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 
 import com.ucan.app.UCApplication;
 import com.ucan.app.base.manager.UCAppManager;
@@ -20,7 +19,7 @@ import com.ucan.app.common.utils.FileAccessor;
 import com.ucan.app.common.utils.LogUtil;
 import com.ucan.app.common.utils.UCNotificationManager;
 import com.ucan.app.common.utils.UCPreferences;
-import com.ucan.app.ui.launcher.LauncherActivity;
+import com.ucan.app.ui.activity.MainActivity;
 import com.yuntongxun.ecsdk.ECChatManager;
 import com.yuntongxun.ecsdk.ECDeskManager;
 import com.yuntongxun.ecsdk.ECDevice;
@@ -33,9 +32,6 @@ import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
 import com.yuntongxun.ecsdk.meeting.video.ECVideoMeetingMsg;
 
-/**
- * Created by Jorstin on 2015/3/17.
- */
 public class SDKCoreHelper implements ECDevice.InitListener,
 		ECDevice.OnECDeviceConnectListener, ECDevice.OnLogoutListener {
 
@@ -73,7 +69,7 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 				.getBoolean(
 						UCPreferenceSettings.SETTINGS_NEW_MSG_SOUND.getId(),
 						true);
-		mOptions.clazz = LauncherActivity.class;
+		mOptions.clazz = MainActivity.class;
 	}
 
 	public static SDKCoreHelper getInstance() {
@@ -175,7 +171,7 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 			Intent intent = new Intent(ACTION_KICK_OFF);
 			intent.putExtra("kickoffText", error.errorMsg);
 			mContext.sendBroadcast(intent);
-			LauncherActivity.mLauncherUI.handlerKickOff(error.errorMsg);
+			MainActivity.mLauncherUI.handlerKickOff(error.errorMsg);
 			UCNotificationManager.getInstance().showKickoffNotification(
 					mContext, error.errorMsg);
 		}
@@ -220,8 +216,8 @@ public class SDKCoreHelper implements ECDevice.InitListener,
 	 */
 	private static void postConnectNotify() {
 
-		if (getInstance().mContext instanceof LauncherActivity) {
-			((LauncherActivity) getInstance().mContext)
+		if (getInstance().mContext instanceof MainActivity) {
+			((MainActivity) getInstance().mContext)
 					.onNetWorkNotify(getConnectState());
 		}
 

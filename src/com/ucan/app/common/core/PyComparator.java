@@ -1,9 +1,5 @@
 package com.ucan.app.common.core;
 
-/**
- * com.yuntongxun.ecdemo.core.comparator in ECDemo_Android
- * Created by Jorstin on 2015/3/21.
- */
 
 import java.io.Serializable;
 import java.util.Comparator;

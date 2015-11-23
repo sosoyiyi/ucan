@@ -15,7 +15,6 @@ import javax.crypto.spec.DESKeySpec;
 import android.util.Base64;
 
 public class Decrypt {
-	// //////////////////////////////////////////////////////////////////////////
 	/**
 	 * 创建密匙
 	 * 
@@ -151,17 +150,5 @@ public class Decrypt {
 		return ret;
 	}
 
-	public static void main(String args[]) {
-		try {
-			System.out.println(URLEncoder.encode(
-					encrypt("DesUcan@2015", "123456"), "utf-8"));
-			System.out.println(decrypt("DesUcan@2015", URLDecoder.decode(
-					"Gj0R%2FLRysDk%3D", "UTF-8")));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 }

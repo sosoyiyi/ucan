@@ -16,7 +16,7 @@ import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ConversationSqlManager;
 import com.ucan.app.base.storage.GroupNoticeSqlManager;
 import com.ucan.app.common.enums.UCPreferenceSettings;
-import com.ucan.app.ui.launcher.LauncherActivity;
+import com.ucan.app.ui.activity.MainActivity;
 import com.yuntongxun.ecsdk.ECMessage;
 
 
@@ -69,7 +69,7 @@ public class UCNotificationManager {
                 "showCustomNewMessageNotification pushContent： " + pushContent
                         + ", fromUserName: " + fromUserName + " ,sessionId: " + sessionId + " ,msgType: " + lastMsgType);
 
-        Intent intent = new Intent(mContext, LauncherActivity.class);
+        Intent intent = new Intent(mContext, MainActivity.class);
         intent.putExtra("nofification_type", "pushcontent_notification");
         intent.putExtra("Intro_Is_Muti_Talker", true);
         intent.putExtra("Main_FromUserName", fromUserName);
@@ -206,7 +206,7 @@ public class UCNotificationManager {
 
     public final void showKickoffNotification(Context context , String kickofftext) {
 
-        Intent intent = new Intent(mContext, LauncherActivity.class);
+        Intent intent = new Intent(mContext, MainActivity.class);
         intent.putExtra("nofification_type", "pushcontent_notification");
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

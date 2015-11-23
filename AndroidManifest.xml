@@ -80,17 +80,17 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.launcher.LoginActivity"
+            android:name="com.ucan.app.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".ui.launcher.LauncherActivity"
+            android:name="com.ucan.app.ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".ui.launcher.SearchActivity"
+            android:name="com.ucan.app.ui.activity.SearchActivity"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >

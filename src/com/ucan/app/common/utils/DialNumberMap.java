@@ -1,11 +1,7 @@
 package com.ucan.app.common.utils;
 
 import java.util.HashMap;
-
-/**
- * com.yuntongxun.ecdemo.common.utils in ECDemo_Android
- * Created by Jorstin on 2015/3/21.
- */
+ 
 public class DialNumberMap {
     public static HashMap<Character, Integer> numberMap = new HashMap<Character, Integer>();
     static {

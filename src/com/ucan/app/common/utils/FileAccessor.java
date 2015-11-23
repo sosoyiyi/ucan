@@ -1,15 +1,4 @@
-/*
- *  Copyright (c) 2015 The UCAN project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a Beijing 优侃互动  Technology Co.,Ltd license
- *  that can be found in the LICENSE file in the root of the web site.
- *
- *   http://www.ucantalk.cn
- *
- *  An additional intellectual property rights grant can be found
- *  in the file PATENTS.  All contributing project authors may
- *  be found in the AUTHORS file in the root of the source tree.
- */package com.ucan.app.common.utils;
+package com.ucan.app.common.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,7 +15,7 @@ import com.ucan.app.UCApplication;
 import com.ucan.app.common.enums.UCPreferenceSettings;
 
 /**
- * 文件操作工具类 Created by Eric on 2015/11/11.
+ * 文件操作工具类
  */
 public class FileAccessor {
 

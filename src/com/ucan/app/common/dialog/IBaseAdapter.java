@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * com.yuntongxun.ecdemo.common.dialog in ECDemo_Android
- * Created by Jorstin on 2015/4/18.
- */
+ 
 public abstract class IBaseAdapter<T> extends BaseAdapter {
 
     protected Context mContext;

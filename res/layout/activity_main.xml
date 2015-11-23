@@ -4,43 +4,12 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-        <include
-            android:id="@+id/top_bar_chatroom"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/topbar_content_height"
-            layout="@layout/top_bar_chatroom"
-            android:visibility="visible" />
-        <include
-            android:id="@+id/top_bar_activity"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/topbar_content_height"
-            layout="@layout/top_bar_activity"
-            android:visibility="gone" />
-        <include
-            android:id="@+id/top_bar_group"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/topbar_content_height"
-            layout="@layout/top_bar_group"
-            android:visibility="gone" />
-         <include
-            android:id="@+id/top_bar_setting"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/topbar_content_height"
-            layout="@layout/top_bar_setting"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/main_bottom"
+        android:id="@+id/tab_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_border"
+        android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -134,11 +103,10 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/fragment_contain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/main_bottom"
-        android:layout_below="@id/top_bar"
-        android:background="@color/common_bg" />
+        android:layout_above="@id/tab_bar" >
+    </RelativeLayout>
 
 </RelativeLayout>

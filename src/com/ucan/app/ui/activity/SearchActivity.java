@@ -1,4 +1,4 @@
-package com.ucan.app.ui.launcher;
+package com.ucan.app.ui.activity;
 
 import android.os.Bundle;
 

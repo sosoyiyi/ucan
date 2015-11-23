@@ -1,4 +1,3 @@
- 
 package com.ucan.app.chat.chatting.emoji;
 
 public class People {

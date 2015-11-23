@@ -50,16 +50,12 @@ import com.yuntongxun.ecsdk.im.ECVideoMessageBody;
 import com.yuntongxun.ecsdk.im.ECVoiceMessageBody;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
 
-/**
- * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-12
- * @version 4.0
- */
+ 
 public class IMChattingHelper implements OnChatReceiveListener,
 		ECChatManager.OnDownloadMessageListener {
 
-	private static final String TAG = "ECSDK_Demo.IMChattingHelper";
-	public static final String INTENT_ACTION_SYNC_MESSAGE = "com.yuntongxun.ecdemo_sync_message";
+	private static final String TAG = "UCAN.IMChattingHelper";
+	public static final String INTENT_ACTION_SYNC_MESSAGE = "com.ucan.app_sync_message";
 	public static final String GROUP_PRIVATE_TAG = "@priategroup.com";
 	private static HashMap<String, SyncMsgEntry> syncMessage = new HashMap<String, SyncMsgEntry>();
 	private static IMChattingHelper sInstance;

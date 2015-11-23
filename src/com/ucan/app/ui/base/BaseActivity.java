@@ -22,7 +22,7 @@ import com.ucan.app.common.view.SystemBarTintManager;
 import com.ucan.app.core.SDKCoreHelper;
 
 public class BaseActivity extends Activity {
-	private final static String TAG = "UCAN_BaseActivity";
+	private final static String TAG = "UCAN.BaseActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
