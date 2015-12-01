@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -31,7 +33,7 @@ import com.ucan.app.common.utils.UCPreferences;
 import com.ucan.app.common.utils.VeryUtils;
 import com.ucan.app.core.SDKCoreHelper;
 import com.ucan.app.ui.base.BaseActivity;
-import com.ucan.app.ui.fragment.ActivityFragment;
+import com.ucan.app.ui.fragment.FindFragment;
 import com.ucan.app.ui.fragment.ChatRoomFragment;
 import com.ucan.app.ui.fragment.GroupFragment;
 import com.ucan.app.ui.fragment.SettingFragment;
@@ -57,7 +59,6 @@ public class MainActivity extends BaseActivity {
 	private boolean mInitActionFlag;
 	private InternalReceiver internalReceiver;
 	private Fragment[] fragments;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +79,9 @@ public class MainActivity extends BaseActivity {
 
 	private void intRes() {
 		setContentView(R.layout.activity_main);
-		setSatutsBarTint(this, R.color.default_color);
+		setSatutsBarTint(this, R.color.top_bar);
 		fragments = new Fragment[] { new ChatRoomFragment(),
-				new ActivityFragment(), new GroupFragment(),
-				new SettingFragment() };
+				new FindFragment(), new GroupFragment(), new SettingFragment() };
 		getFragmentManager().beginTransaction()
 				.add(R.id.fragment_contain, fragments[0])
 				.add(R.id.fragment_contain, fragments[1])
@@ -90,12 +90,12 @@ public class MainActivity extends BaseActivity {
 				.hide(fragments[2]).hide(fragments[3]).commit();
 		mTabBtn = new Button[4];
 		mTabBtn[0] = (Button) findViewById(R.id.tab_btn_chatroom);
-		mTabBtn[1] = (Button) findViewById(R.id.tab_btn_activity);
+		mTabBtn[1] = (Button) findViewById(R.id.tab_btn_find);
 		mTabBtn[2] = (Button) findViewById(R.id.tab_btn_group);
 		mTabBtn[3] = (Button) findViewById(R.id.tab_btn_setting);
 		mTabBtn[0].setSelected(true);
 	}
-	
+
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		LogUtil.d(LogUtil.getLogUtilsTag(MainActivity.class), " onKeyDown");
@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity {
 		case R.id.tab_btn_chatroom:
 			tabBtnIndex = TAB_INDEX_CHATROOM;
 			break;
-		case R.id.tab_btn_activity:
+		case R.id.tab_btn_find:
 			tabBtnIndex = TAB_INDEX_PRACTISE;
 			break;
 		case R.id.tab_btn_group:
@@ -146,8 +146,7 @@ public class MainActivity extends BaseActivity {
 			break;
 		}
 		if (cTabIndex != tabBtnIndex) {
-			getFragmentManager().beginTransaction()
-					.hide(fragments[cTabIndex])
+			getFragmentManager().beginTransaction().hide(fragments[cTabIndex])
 					.show(fragments[tabBtnIndex]).commit();
 		}
 		mTabBtn[cTabIndex].setSelected(false);
@@ -208,14 +207,27 @@ public class MainActivity extends BaseActivity {
 			if (intent == null || TextUtils.isEmpty(intent.getAction())) {
 				return;
 			}
-			LogUtil.d(TAG, "[onReceive] action:" + intent.getAction());
-			if (SDKCoreHelper.ACTION_SDK_CONNECT.equals(intent.getAction())) {
-				doInitAction();
-				updateConnectState();
-			} else if (SDKCoreHelper.ACTION_KICK_OFF.equals(intent.getAction())) {
-				String kickoffText = intent.getStringExtra("kickoffText");
-				handlerKickOff(kickoffText);
+			ConnectivityManager connectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mobNetInfo = connectivityManager
+					.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+			NetworkInfo wifiNetInfo = connectivityManager
+					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
+				ToastUtil.showMessage("网络不可用");
+			} else {
+				// 改变背景或者 处理网络的全局变量
+				LogUtil.d(TAG, "[onReceive] action:" + intent.getAction());
+				if (SDKCoreHelper.ACTION_SDK_CONNECT.equals(intent.getAction())) {
+					doInitAction();
+					updateConnectState();
+				} else if (SDKCoreHelper.ACTION_KICK_OFF.equals(intent
+						.getAction())) {
+					String kickoffText = intent.getStringExtra("kickoffText");
+					handlerKickOff(kickoffText);
+				}
 			}
+
 		}
 	}
 
@@ -387,13 +399,6 @@ public class MainActivity extends BaseActivity {
 		int count = unreadCount;
 		if (unreadCount >= notifyUnreadCount) {
 			count = unreadCount - notifyUnreadCount;
-		}
-		if (count > 0) {
-			findViewById(R.id.btn_unread).setBackgroundResource(
-					R.drawable.icon_topbar_message_new);
-		} else {
-			findViewById(R.id.btn_unread).setBackgroundResource(
-					R.drawable.icon_topbar_message);
 		}
 	}
 

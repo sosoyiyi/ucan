@@ -1,7 +1,11 @@
 package com.ucan.app.ui.activity;
 
 import java.io.InvalidClassException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.http.Header;
 
@@ -15,18 +19,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ucan.app.R;
-import com.ucan.app.base.manager.UCAccountManager;
 import com.ucan.app.base.manager.UCAppManager;
 import com.ucan.app.base.storage.ContactSqlManager;
 import com.ucan.app.common.contacts.ContactLogic;
 import com.ucan.app.common.contacts.UCContacts;
 import com.ucan.app.common.dialog.UCProgressDialog;
 import com.ucan.app.common.enums.UCPreferenceSettings;
-import com.ucan.app.common.http.NetCallBack;
+import com.ucan.app.common.http.HttpRequestManager;
 import com.ucan.app.common.model.ClientUser;
-import com.ucan.app.common.utils.ResponseUtil;
 import com.ucan.app.common.utils.ToastUtil;
 import com.ucan.app.common.utils.UCPreferences;
+import com.ucan.app.common.utils.VeryUtils;
 import com.ucan.app.common.view.CircularImage;
 import com.ucan.app.common.view.DefineInputView;
 import com.ucan.app.ui.base.BaseActivity;
@@ -89,11 +92,12 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 		signUpBtn.setOnClickListener(this);
 	}
 
-	NetCallBack cb = new NetCallBack() {
+	HttpRequestManager.OnAsyncResponseListener cb = new HttpRequestManager.OnAsyncResponseListener() {
+
 		@Override
-		public void httpSuccess(int arg0, Header[] arg1, byte[] arg2) {
-			String statuCode = ResponseUtil.getStatuCode(new String(arg2));
-			if (statuCode.equals("200")) {
+		public void onSuccess(int code, List<HashMap<String, String>> data,
+				int length) {
+			if (code == 200) {
 				try {
 					saveAccount();
 				} catch (InvalidClassException e) {
@@ -108,14 +112,16 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 				mPostingdialog.dismiss();
 				ToastUtil.showMessage("用户名或密码错误");
 			}
+
 		}
 
 		@Override
-		public void httpFailure(int arg0, Header[] arg1, byte[] arg2,
+		public void onError(int statu, Header[] arg1, byte[] arg2,
 				Throwable arg3) {
 			ToastUtil.showMessage("无法连接服务器");
 			mPostingdialog.dismiss();
 			arg3.printStackTrace();
+
 		}
 
 	};
@@ -127,16 +133,36 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 			hideSoftKeyboard();
 			account = mobileInput.getText().toString().trim();
 			password = pwdInput.getText().toString().trim();
-			mPostingdialog = new UCProgressDialog(this, R.string.login_posting);
+			mPostingdialog = new UCProgressDialog(ctx, R.string.login_posting);
 			mPostingdialog.show();
-			UCAccountManager.isEffectiveUser(account, password, cb);
+			HashMap<String, String> params = new HashMap<String, String>();
+			try {
+				params.put("account", account);
+				params.put("password",
+						URLEncoder.encode(VeryUtils.md5(password), "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			HttpRequestManager.getInstance().isEffectiveUser(params, cb);
 			break;
 		case R.id.login_signup:
+			Intent intent = new Intent(ctx, RegisterActivity.class);
+			startActivityForResult(intent, 0x2a);
 			break;
 		default:
 			break;
 		}
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == 0x2a) {
+
+		}
 	}
 
 	private void saveAccount() throws InvalidClassException {

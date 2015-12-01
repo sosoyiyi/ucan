@@ -35,5 +35,6 @@
     <dimen name="popup_menu_image_margin_bottom">0.0dip</dimen>
     <dimen name="ccp_button_text_size">18sp</dimen>
     <dimen name="primary_text_size">14sp</dimen>
+    <dimen name="cube_mints_content_view_padding">12.5dp</dimen>
 
 </resources>

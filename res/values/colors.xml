@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="contain_fragment_background">#fffbf6f2</color>
+
+    <color name="contain_fragment_background">#fffbf6f2</color>
     <color name="dialog_background">#fffbf6f2</color>
     <color name="text_content">#ffa19d94</color>
+    <color name="top_bar">#ffffff</color>
+    <color name="top_bar_text">#ff454545</color>
     <color name="blue">#ff169aff</color>
     <color name="white">#ffffffff</color>
+    <color name="white_trans">#22ffffff</color>
+    <color name="black_trans">#99000000</color>
     <color name="default_color">#ff0000</color>
     <color name="action_bar_trans">#99ff0000</color>
     <color name="text_btn">#ffff0000</color>
@@ -14,7 +19,7 @@
     <color name="dialog_btn_press">#ffece5df</color>
     <color name="dialog_divider">#ffe8e0da</color>
     <color name="devideline_listview">#ffe5e2d4</color>
-    <color name="transparent">#00000000</color>
+    <color name="transparent">#00ffffff</color>
     <color name="dialog_item_press">#ffece5df</color>
     <color name="bg_input_trans">#00000000</color>
     <color name="bg_button_trans">#ffffffff</color>
@@ -30,7 +35,8 @@
     <color name="common_bottom_bar_normal_bg">#ffffff</color>
     <color name="bottom_button_text_color">#cdcdcd</color>
     <color name="text_disabled">#ffa8a8a8</color>
-	    <item name="menu_pressed_color" type="color">@color/small_line_color</item>
+
+    <item name="menu_pressed_color" type="color">@color/small_line_color</item>
 
     <color name="small_line_color">#26000000</color>
     <color name="common_popup_menu_list_divider">#ff191919</color>

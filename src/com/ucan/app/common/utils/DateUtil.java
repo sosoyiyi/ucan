@@ -35,7 +35,7 @@ public class DateUtil {
 	public static final int SHOW_TYPE_CALL_DETAIL = 4;
 
 	/**
-	 * 获取当前当天日期的毫秒数 2012-03-21的毫秒数
+	 * 获取当前当天日期的毫秒数
 	 *
 	 * @return
 	 */
@@ -51,7 +51,8 @@ public class DateUtil {
 	}
 
     public static String formatDate(int year, int month, int day) {
-        Date d = new Date(year - 1900, month, day);
+       // Date d = new Date(year - 1900, month, day);
+    	Date d = new Date(year-1900,month,day);
         return yearFormat.format(d);
     }
 

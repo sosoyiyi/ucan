@@ -34,7 +34,7 @@ public class CircularImage extends ImageView {
  
     // 圆形边框的厚度默认值。
     // 如果是0，则没有天蓝色渐变的边框。
-    private static final int DEFAULT_BORDER_WIDTH = 5;
+    private static final int DEFAULT_BORDER_WIDTH = 3;
  
     private static final int DEFAULT_BORDER_COLOR = Color.BLACK;
  

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.ucan.app.R;
 
-public class ActivityFragment extends Fragment implements View.OnClickListener {
+public class FindFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class ActivityFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_activity, container, false);
+		return inflater.inflate(R.layout.fragment_find, container, false);
 	}
 
 	@Override

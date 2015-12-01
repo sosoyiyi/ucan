@@ -48,6 +48,9 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <!-- 允许程序屏幕波或和更多常规的访问帧缓冲数据 -->
     <!-- uses-permission android:name="android.permission.READ_FRAME_BUFFER" -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".UCApplication"
@@ -62,6 +65,9 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="yuntongxun_im_5.1.7r" />
+        <meta-data
+            android:name="QJClientId"
+            android:value="ce79eb2cf04c91584a780143" />
 
         <activity
             android:name=".ui.Splash"
@@ -90,13 +96,15 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
+            android:name="com.ucan.app.ui.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
             android:name="com.ucan.app.ui.activity.SearchActivity"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ucan.app.ui.base.BaseActivity" />
         </activity>
     </application>
 

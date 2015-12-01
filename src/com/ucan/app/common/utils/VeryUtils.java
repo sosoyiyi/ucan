@@ -8,9 +8,16 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 
 import junit.framework.Assert;
 import android.annotation.TargetApi;
@@ -39,6 +46,7 @@ import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -96,6 +104,32 @@ public class VeryUtils {
 		return "";
 	}
 
+	/**
+	 * 十六进制字符串转化为2进制
+	 * 
+	 * @param hex
+	 * @return
+	 */
+	public static byte[] hex2byte(String hex) {
+		byte[] ret = new byte[8];
+		byte[] tmp = hex.getBytes();
+
+		for (int i = 0; i < 8; i++) {
+			ret[i] = uniteBytes(tmp[i * 2], tmp[i * 2 + 1]);
+		}
+		return ret;
+	}
+
+	public static byte uniteBytes(byte src0, byte src1) {
+		byte _b0 = Byte.decode("0x" + new String(new byte[] { src0 }))
+				.byteValue();
+		_b0 = (byte) (_b0 << 4);
+		byte _b1 = Byte.decode("0x" + new String(new byte[] { src1 }))
+				.byteValue();
+		byte ret = (byte) (_b0 ^ _b1);
+		return ret;
+	}
+
 	public static String byte2hex(byte b[]) {
 		String hs = "";
 		String stmp = "";
@@ -110,6 +144,101 @@ public class VeryUtils {
 		}
 
 		return hs.toUpperCase();
+	}
+
+	/**
+	 * 创建密匙
+	 * 
+	 * @param algorithm
+	 *            加密算法,可用 DES,DESede,Blowfish
+	 * @return SecretKey 秘密（对称）密钥
+	 */
+	public SecretKey createSecretKey(String algorithm) {
+		// 声明KeyGenerator对象
+		KeyGenerator keygen;
+		// 声明 密钥对象
+		SecretKey deskey = null;
+		try {
+			// 返回生成指定算法的秘密密钥的 KeyGenerator 对象
+			keygen = KeyGenerator.getInstance(algorithm);
+			// 生成一个密钥
+			deskey = keygen.generateKey();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		// 返回密匙
+		return deskey;
+	}
+
+	/**
+	 * 根据密匙进行DES加密
+	 * 
+	 * @param key
+	 *            密匙
+	 * @param info
+	 *            要加密的信息
+	 * @return String 加密后的信息
+	 */
+	public static String encrypt(String key, String info) {
+		// 定义 加密算法,可用 DES,DESede,Blowfish
+		String Algorithm = "DES";
+		// 加密随机数生成器 (RNG),(可以不写)
+		byte[] cipherByte = null;
+		String string1 = "";
+		SecureRandom sr = new SecureRandom();
+		try {
+			DESKeySpec dks = new DESKeySpec(key.getBytes());
+			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+			SecretKey sKey = keyFactory.generateSecret(dks);
+			// 得到加密/解密器
+			Cipher c1 = Cipher.getInstance(Algorithm);
+			// 用指定的密钥和模式初始化Cipher对象
+			// 参数:(ENCRYPT_MODE, DECRYPT_MODE, WRAP_MODE,UNWRAP_MODE)
+			c1.init(Cipher.ENCRYPT_MODE, sKey, sr);
+			// 对要加密的内容进行编码处理,
+			cipherByte = c1.doFinal(info.getBytes());
+			// BASE64Encoder enc = new BASE64Encoder();
+			string1 = Base64.encodeToString(cipherByte, Base64.DEFAULT);
+
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		return string1;// byte2hex(cipherByte);
+	}
+
+	/**
+	 * 根据密匙进行DES解密
+	 * 
+	 * @param key
+	 *            密匙
+	 * @return String 返回解密后信息
+	 */
+	public static String decrypt(String key, String sInfo) {
+		// 定义 加密算法,
+		String Algorithm = "DES";
+		// 加密随机数生成器 (RNG)
+		// BASE64Decoder dec = new BASE64Decoder();
+		byte[] bInfo = null;
+		byte[] cipherByte = null;
+		try {
+			// 得到加密/解密器
+			SecureRandom sr = new SecureRandom();
+			DESKeySpec dks = new DESKeySpec(key.getBytes());
+			SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+			SecretKey sKey = keyFactory.generateSecret(dks);
+			Cipher c1 = Cipher.getInstance(Algorithm);
+			// 用指定的密钥和模式初始化Cipher对象
+			c1.init(Cipher.DECRYPT_MODE, sKey, sr);
+			// 对要解密的内容进行编码处理
+			bInfo = Base64.decode(sInfo.getBytes(), Base64.DEFAULT);
+			cipherByte = c1.doFinal(bInfo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// return byte2hex(cipherByte);
+		return new String(cipherByte);
 	}
 
 	/**
@@ -236,10 +365,10 @@ public class VeryUtils {
 			str = str.substring(3, str.length());
 		}
 
-//		if (str.contains("#")) {
-//
-//			return str.replaceAll("#", "@");
-//		}
+		// if (str.contains("#")) {
+		//
+		// return str.replaceAll("#", "@");
+		// }
 
 		// 只允数字
 		String regEx = "[^0-9]";
@@ -654,19 +783,19 @@ public class VeryUtils {
 			return null;
 		}
 	}
-	
-	public static String bytes2kb(long bytes) {  
-        BigDecimal filesize = new BigDecimal(bytes);  
-        BigDecimal megabyte = new BigDecimal(1024 * 1024);  
-        float returnValue = filesize.divide(megabyte, 2, BigDecimal.ROUND_UP)  
-                .floatValue();  
-        if (returnValue > 1)  
-            return (returnValue + "MB");  
-        BigDecimal kilobyte = new BigDecimal(1024);  
-        returnValue = filesize.divide(kilobyte, 2, BigDecimal.ROUND_UP)  
-                .floatValue();  
-        return (returnValue + "KB");  
-    }  
+
+	public static String bytes2kb(long bytes) {
+		BigDecimal filesize = new BigDecimal(bytes);
+		BigDecimal megabyte = new BigDecimal(1024 * 1024);
+		float returnValue = filesize.divide(megabyte, 2, BigDecimal.ROUND_UP)
+				.floatValue();
+		if (returnValue > 1)
+			return (returnValue + "MB");
+		BigDecimal kilobyte = new BigDecimal(1024);
+		returnValue = filesize.divide(kilobyte, 2, BigDecimal.ROUND_UP)
+				.floatValue();
+		return (returnValue + "KB");
+	}
 
 	/**
 	 * 读取图片属性：旋转的角度
@@ -1190,7 +1319,7 @@ public class VeryUtils {
 			return false;
 		}
 		String filePath = url;
-		File dir = new File(FileAccessor.APPS_ROOT_DIR, "ECDemo_IM");
+		File dir = new File(FileAccessor.APPS_ROOT_DIR, "UCAN_IM");
 		if (!dir.exists())
 			dir.mkdirs();
 		long timeMillis = System.currentTimeMillis();
@@ -1268,17 +1397,17 @@ public class VeryUtils {
 
 	private static final long[] SHAKE_PATTERN = { 300L, 200L, 300L, 200L };
 	private static final long[] SHAKE_MIC_PATTERN = { 300L, 200L };
-    
-    public static String getLastwords(String srcText, String p) {
-        try {
-            String[] array = TextUtils.split(srcText, p);
-            int index = (array.length - 1 < 0) ? 0 : array.length - 1;
-            return array[index];
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
+	public static String getLastwords(String srcText, String p) {
+		try {
+			String[] array = TextUtils.split(srcText, p);
+			int index = (array.length - 1 < 0) ? 0 : array.length - 1;
+			return array[index];
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * msg shake
@@ -1318,55 +1447,55 @@ public class VeryUtils {
 		vibrator.cancel();
 	}
 
-    public static String getDeviceWithType (ECDeviceType deviceType){
-        if(deviceType == null) {
-            return "未知";
-        }
-        switch (deviceType) {
-            case ANDROID_PHONE:
-                return "Android手机";
+	public static String getDeviceWithType(ECDeviceType deviceType) {
+		if (deviceType == null) {
+			return "未知";
+		}
+		switch (deviceType) {
+		case ANDROID_PHONE:
+			return "Android手机";
 
-            case IPHONE:
-                return "iPhone手机";
+		case IPHONE:
+			return "iPhone手机";
 
-            case IPAD:
-                return "iPad平板";
+		case IPAD:
+			return "iPad平板";
 
-            case ANDROID_PAD:
-                return "Android平板";
+		case ANDROID_PAD:
+			return "Android平板";
 
-            case PC:
-                return "PC";
+		case PC:
+			return "PC";
 
-            case WEB:
-                return "Web";
+		case WEB:
+			return "Web";
 
-            default:
-                return "未知";
-        }
-    }
+		default:
+			return "未知";
+		}
+	}
 
-    public static String getNetWorkWithType(ECNetworkType type){
-        if(type == null) {
-            return "未知";
-        }
-        switch (type) {
-            case ECNetworkType_WIFI:
-                return "wifi";
+	public static String getNetWorkWithType(ECNetworkType type) {
+		if (type == null) {
+			return "未知";
+		}
+		switch (type) {
+		case ECNetworkType_WIFI:
+			return "wifi";
 
-            case ECNetworkType_4G:
-                return "4G";
+		case ECNetworkType_4G:
+			return "4G";
 
-            case ECNetworkType_3G:
-                return "3G";
+		case ECNetworkType_3G:
+			return "3G";
 
-            case ECNetworkType_GPRS:
-                return "GRPS";
+		case ECNetworkType_GPRS:
+			return "GRPS";
 
-            case ECNetworkType_LAN:
-                return "Internet";
-            default:
-                return "其他";
-        }
-    }
+		case ECNetworkType_LAN:
+			return "Internet";
+		default:
+			return "其他";
+		}
+	}
 }

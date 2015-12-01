@@ -47,12 +47,7 @@ public class ChatRoomFragment extends Fragment {
 		view = inflater.inflate(R.layout.fragment_chatroom, container, false);
 		mOverflowHelper = new OverflowHelper(getActivity());
 		initOverflowItems();
-		mTopBtn = new Button[2];
-		mTopBtn[0] = (Button) view.findViewById(R.id.top_btn_chatroom_left);
-		mTopBtn[1] = (Button) view.findViewById(R.id.top_btn_chatroom_right);
-		mTopBtn[0].setOnClickListener(btnClickListener);
-		mTopBtn[1].setOnClickListener(btnClickListener);
-		mTopBtn[0].setSelected(true);
+
 		contentFragment = new Fragment[] { new ChatRoomContentLeftFragment(),
 				new ChatRoomContentRightFragment() };
 		getChildFragmentManager().beginTransaction()
@@ -60,7 +55,6 @@ public class ChatRoomFragment extends Fragment {
 				.add(R.id.fragment_content, contentFragment[1])
 				.hide(contentFragment[1]).commit();
 		view.findViewById(R.id.btn_menu).setOnClickListener(btnClickListener);
-		view.findViewById(R.id.btn_unread).setOnClickListener(btnClickListener);
 		return view;
 	}
 
@@ -69,25 +63,10 @@ public class ChatRoomFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.top_btn_chatroom_left:
-				topBtnIndex = 0;
-				break;
-			case R.id.top_btn_chatroom_right:
-				topBtnIndex = 1;
-				break;
 			case R.id.btn_menu:
 				controlPlusSubMenu();
 				break;
 			}
-			if (cTopIndex != topBtnIndex) {
-				getChildFragmentManager().beginTransaction()
-						.hide(contentFragment[cTopIndex])
-						.show(contentFragment[topBtnIndex]).commit();
-			}
-			mTopBtn[cTopIndex].setSelected(false);
-			// 把当前btn设为选中状态
-			mTopBtn[topBtnIndex].setSelected(true);
-			cTopIndex = topBtnIndex;
 		}
 	};
 
