@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/register_set_account"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.ucan.app.common.view.DefineInputView
+            android:id="@+id/register_mobile"
+            style="@style/FormInputView"
+            android:drawableLeft="@drawable/mobile"
+            android:drawableStart="@drawable/mobile"
+            android:hint="@string/register_input_moblie"
+            android:inputType="number"
+            android:maxLength="11" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/LoginInputWidth"
+        android:layout_height="@dimen/SmallListHeight"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/register_verifycode"
+            style="@style/FormInputView"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/password"
+            android:drawableStart="@drawable/password"
+            android:hint="@string/register_input_verifycode"
+            android:inputType="number"
+            android:maxLength="4" />
+
+        <Button
+            android:id="@+id/register_get_verifycode"
+            style="@style/FormButtonView"
+            android:layout_weight="1"
+            android:text="@string/get_verifycode" >
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/next_btn"
+            style="@style/FormButtonView"
+            android:text="@string/next_btn" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>
