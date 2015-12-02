@@ -27,6 +27,7 @@ import com.ucan.app.common.dialog.UCProgressDialog;
 import com.ucan.app.common.enums.UCPreferenceSettings;
 import com.ucan.app.common.http.HttpRequestManager;
 import com.ucan.app.common.model.ClientUser;
+import com.ucan.app.common.utils.LogUtil;
 import com.ucan.app.common.utils.ToastUtil;
 import com.ucan.app.common.utils.UCPreferences;
 import com.ucan.app.common.utils.VeryUtils;
@@ -42,6 +43,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 	private String account, password;
 	private UCProgressDialog mPostingdialog;
 	private Context ctx;
+	HashMap<String, String> params = new HashMap<String, String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,9 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 		@Override
 		public void onSuccess(int code, List<HashMap<String, String>> data,
 				int length) {
+
 			if (code == 200) {
+				mPostingdialog.dismiss();
 				try {
 					saveAccount();
 				} catch (InvalidClassException e) {
@@ -135,7 +139,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 			password = pwdInput.getText().toString().trim();
 			mPostingdialog = new UCProgressDialog(ctx, R.string.login_posting);
 			mPostingdialog.show();
-			HashMap<String, String> params = new HashMap<String, String>();
+			params.clear();
 			try {
 				params.put("account", account);
 				params.put("password",

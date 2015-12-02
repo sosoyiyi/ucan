@@ -1,38 +1,30 @@
 package com.ucan.app.ui.activity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.HashMap;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import cn.my7g.qjlink.sdk.QJLinkManager;
-import cn.my7g.qjlink.sdk.http.OnLoadDataListener;
 
 import com.ucan.app.R;
 import com.ucan.app.common.dialog.UCProgressDialog;
 import com.ucan.app.common.utils.LogUtil;
-import com.ucan.app.common.utils.ToastUtil;
-import com.ucan.app.common.view.DefineInputView;
 import com.ucan.app.ui.base.BaseActivity;
+import com.ucan.app.ui.fragment.OnPushDataListener;
+import com.ucan.app.ui.fragment.RegisterSetAccountFragment;
+import com.ucan.app.ui.fragment.RegisterSetBasicInfoFragment;
+import com.ucan.app.ui.fragment.RegisterSetPasswordFragment;
 
-public class RegisterActivity extends BaseActivity implements TextWatcher,
-		View.OnClickListener {
-	private DefineInputView mobileInput, pwdInput;
-	private EditText vcodeInput;
-	private Button signUpBtn, getVcodeBtn;
-	private String account, password, verifyCode;
+public class RegisterActivity extends BaseActivity implements
+		OnPushDataListener {
+
 	private UCProgressDialog mPostingdialog;
 	private Context ctx;
-	private TimeCount time;
-	private Boolean isCountDown;
+
+	private Fragment[] fragments;
+	HashMap<String, String> params = new HashMap<String, String>();
+	private int currentIndex;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,110 +33,41 @@ public class RegisterActivity extends BaseActivity implements TextWatcher,
 		initRes();
 	}
 
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		if (!TextUtils.isEmpty(mobileInput.getText())
-				&& !TextUtils.isEmpty(pwdInput.getText())
-				&& !TextUtils.isEmpty(vcodeInput.getText())) {
-			signUpBtn.setClickable(true);
-		} else {
-			signUpBtn.setClickable(false);
-		}
-
-	}
-
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int count,
-			int after) {
-
-	}
-
-	@Override
-	public void afterTextChanged(Editable s) {
-
+	public void doRegister() {
+		mPostingdialog = new UCProgressDialog(this, R.string.register_posting);
+		mPostingdialog.show();
 	}
 
 	private void initRes() {
 		setContentView(R.layout.activity_register);
 		setTranslucentStatus();
-		time = new TimeCount(60000, 1000);
-		mobileInput = (DefineInputView) findViewById(R.id.regist_mobile);
-		pwdInput = (DefineInputView) findViewById(R.id.regist_password);
-		vcodeInput = (EditText) findViewById(R.id.regist_verifycode);
-		getVcodeBtn = (Button) findViewById(R.id.regist_get_verifycode);
-		getVcodeBtn.setOnClickListener(this);
-		signUpBtn = (Button) findViewById(R.id.regist_signup);
-		signUpBtn.setOnClickListener(this);
-	}
-
-	OnLoadDataListener onLoadDataListener = new OnLoadDataListener() {
-		@Override
-		public void onError(String result) {
-			LogUtil.e(result);
-			try {
-				ToastUtil.showMessage(new JSONObject(result).get("msg")
-						.toString());
-			} catch (JSONException e) {
-				ToastUtil.showMessage("网络连接异常");
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void onSuccess(String result) {
-			LogUtil.e(result);
-			try {
-				JSONObject rs = new JSONObject(result);
-				if (rs.get("msg").equals("请60秒后再重发验证码")) {
-					ToastUtil.showMessage(new JSONObject(result).get("msg")
-							.toString());
-				} else {
-					time.start();
-				}
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-		}
-	};
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.login_signin:
-			hideSoftKeyboard();
-
-			account = mobileInput.getText().toString().trim();
-			password = pwdInput.getText().toString().trim();
-			verifyCode = vcodeInput.getText().toString().trim();
-			QJLinkManager.getInstance(getApplicationContext()).requestLogin(
-					account, verifyCode, onLoadDataListener);
-			mPostingdialog = new UCProgressDialog(this,
-					R.string.register_posting);
-			mPostingdialog.show();
-			break;
-		case R.id.login_signup:
-			break;
-		case R.id.regist_get_verifycode:
-			account = mobileInput.getText().toString().trim();
-			if (TextUtils.isEmpty(account)) {
-				ToastUtil.showMessage("请先输入手机号码");
-			} else {
-				QJLinkManager.getInstance(getApplicationContext())
-						.requestPassword(account, onLoadDataListener);
-			}
-			break;
-		default:
-			break;
-		}
-
+		fragments = new Fragment[] { new RegisterSetAccountFragment(),
+				new RegisterSetPasswordFragment(),
+				new RegisterSetBasicInfoFragment() };
+		getFragmentManager().beginTransaction()
+				.add(R.id.fragment_contain, fragments[0])
+				.add(R.id.fragment_contain, fragments[1])
+				.add(R.id.fragment_contain, fragments[2]).hide(fragments[1])
+				.hide(fragments[2]).commit();
+		currentIndex = 0;
 	}
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
+		LogUtil.e("currentIndex", String.valueOf(currentIndex));
 		if ((event.getKeyCode() == KeyEvent.KEYCODE_BACK)
 				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if (currentIndex <= 0) {
+				return super.dispatchKeyEvent(event);
+			}
+			currentIndex--;
+			getFragmentManager()
+					.beginTransaction()
+					.setCustomAnimations(R.anim.fragment_slide_left_in,
+							R.anim.fragment_slide_right_out)
+					.hide(fragments[currentIndex + 1])
+					.show(fragments[currentIndex]).commit();
+			return false;
 		}
 		return super.dispatchKeyEvent(event);
 	}
@@ -154,24 +77,22 @@ public class RegisterActivity extends BaseActivity implements TextWatcher,
 		super.onDestroy();
 	}
 
-	class TimeCount extends CountDownTimer {
-		public TimeCount(long millisInFuture, long countDownInterval) {
-			super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+	@Override
+	public void OnPushData(String key, String value) {
+		if (currentIndex >= 2) {
+			doRegister();
+			return;
 		}
-
-		@Override
-		public void onFinish() {// 计时完毕时触发
-			getVcodeBtn.setText("重新验证");
-			getVcodeBtn.setClickable(true);
-			isCountDown = false;
-		}
-
-		@Override
-		public void onTick(long millisUntilFinished) {// 计时过程显示
-			isCountDown = true;
-			getVcodeBtn.setClickable(false);
-			getVcodeBtn.setText(millisUntilFinished / 1000 + "秒");
-		}
+		currentIndex++;
+		params.put(key, value);
+		LogUtil.e(params.toString());
+		getFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(R.anim.fragment_slide_right_in,
+						R.anim.fragment_slide_left_out,
+						R.anim.fragment_slide_left_in,
+						R.anim.fragment_slide_right_out)
+				.hide(fragments[currentIndex - 1])
+				.show(fragments[currentIndex]).commit();
 	}
-
 }

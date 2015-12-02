@@ -3,6 +3,7 @@ package com.ucan.app.common.http;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.ucan.app.common.utils.LogUtil;
 
 public class HttpRequestManager {
 
@@ -41,8 +43,8 @@ public class HttpRequestManager {
 			OnAsyncResponseListener onAsyncResponseListener) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(AsyncServerConfig.asyncServer());
-		sb.append("/login");
-		sb.append("/post");
+		sb.append("/userlogin");
+		sb.append("/putInfo");
 		clientGet(sb.toString(), params, onAsyncResponseListener);
 	}
 
@@ -50,8 +52,8 @@ public class HttpRequestManager {
 			OnAsyncResponseListener onAsyncResponseListener) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(AsyncServerConfig.asyncServer());
-		sb.append("/login");
-		sb.append("/get");
+		sb.append("/userlogin");
+		sb.append("/getInfo");
 		clientGet(sb.toString(), params, onAsyncResponseListener);
 	}
 
@@ -74,6 +76,9 @@ public class HttpRequestManager {
 
 	public static abstract class OnAsyncResponseListener extends
 			AsyncHttpResponseHandler {
+		ObjectMapper mapper = new ObjectMapper();
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
 		@Override
 		public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 				Throwable arg3) {
@@ -84,12 +89,14 @@ public class HttpRequestManager {
 		@Override
 		public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 			try {
-				ObjectMapper mapper = new ObjectMapper();
-				List<HashMap<String, String>> resultList = mapper.readValue(
-						new String(arg2), List.class);
-				int code = Integer.valueOf(resultList.get(0).get("statuCode"));
-				int length = resultList.size();
-				onSuccess(code, resultList, length);
+				HashMap<String, Object> result = mapper.readValue(new String(
+						arg2), HashMap.class);
+				int code = (Integer) result.get("code");
+				if (result.get("items") != null) {
+					list = (List<HashMap<String, String>>) result.get("items");
+				}
+				int length = list.size();
+				onSuccess(code, list, length);
 			} catch (JsonParseException e) {
 				e.printStackTrace();
 			} catch (JsonMappingException e) {

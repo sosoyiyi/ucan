@@ -22,11 +22,11 @@ public enum UCPreferenceSettings {
 	/** 图片缓存路径 */
 	SETTINGS_CROPIMAGE_OUTPUTPATH("com.ucan.app_CropImage_OutputPath", ""),
 	/* 云通讯appkey */
-	SETTINGS_APPKEY("com.ucan.app_appkey", "20150314000000110000000000000010"),
+	//SETTINGS_APPKEY("com.ucan.app_appkey", "20150314000000110000000000000010"),
 	/* 云通讯token */
-	SETTINGS_TOKEN("com.ucan.app_token", "17E24E5AFDB6D0C1EF32F3533494502B"),
-	// SETTINGS_APPKEY("com.ucan.app_appkey","8a48b55150655bee015065981823010f"),
-	// SETTINGS_TOKEN("com.ucan.app_token","b50c629e87c20f33ff119e75c80cf716"),
+	//SETTINGS_TOKEN("com.ucan.app_token", "17E24E5AFDB6D0C1EF32F3533494502B"),
+	SETTINGS_APPKEY("com.ucan.app_appkey","8a48b55150655bee015065981823010f"),
+	SETTINGS_TOKEN("com.ucan.app_token","b50c629e87c20f33ff119e75c80cf716"),
 	SETTINGS_ABSOLUTELY_EXIT("com.ucan.app_absolutely_exit", Boolean.FALSE), 
 	SETTINGS_FULLY_EXIT("com.ucan.app_fully_exit", Boolean.FALSE), 
 	SETTINGS_PREVIEW_SELECTED("com.ucan.app_preview_selected", Boolean.FALSE), 

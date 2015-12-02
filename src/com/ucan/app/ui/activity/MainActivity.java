@@ -42,7 +42,7 @@ import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.platformtools.ECHandlerHelper;
 
 public class MainActivity extends BaseActivity {
-	public static final String TAG = "UCAN.LauncherActivity";
+	public static final String TAG = "UCAN.MainActivity";
 	public static MainActivity mLauncherUI;
 	private final static int TAB_INDEX_CHATROOM = 0;
 	private final static int TAB_INDEX_PRACTISE = 1;

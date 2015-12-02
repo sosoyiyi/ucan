@@ -1,82 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/bg"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:paddingTop="20dp">
 
     <RelativeLayout
+        android:id="@+id/fragment_contain"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical" >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/login_register"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true" >
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:divider="@drawable/spacer_medium"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:showDividers="middle" >
-
-        <com.ucan.app.common.view.DefineInputView
-            android:id="@+id/regist_mobile"
-            style="@style/FormInputView"
-            android:drawableLeft="@drawable/mobile"
-            android:drawableStart="@drawable/mobile"
-            android:hint="@string/regist_input_moblie"
-            android:inputType="number"
-            android:maxLength="11" />
-
-        <com.ucan.app.common.view.DefineInputView
-            android:id="@+id/regist_password"
-            style="@style/FormInputView"
-            android:drawableLeft="@drawable/password"
-            android:drawableStart="@drawable/password"
-            android:hint="@string/regist_input_password"
-            android:inputType="textPassword"
-            android:maxLength="12" />
-
-        <LinearLayout
-            android:layout_width="@dimen/LoginInputWidth"
-            android:layout_height="@dimen/SmallListHeight"
-            android:orientation="horizontal" >
-
-            <EditText
-                android:id="@+id/regist_verifycode"
-                style="@style/FormInputView"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/password"
-                android:drawableStart="@drawable/password"
-                android:hint="@string/regist_input_verifycode"
-                android:inputType="number"
-                android:maxLength="4" />
-
-            <Button
-                android:id="@+id/regist_get_verifycode"
-                style="@style/FormButtonView"
-                android:layout_weight="1"
-                android:text="@string/get_verifycode" >
-            </Button>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/regist_signup"
-            style="@style/FormButtonView"
-            android:clickable="false"
-            android:text="@string/login_register" >
-        </Button>
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -4,9 +4,9 @@
     <string name="app_name">优侃说英语</string>
     <string name="login_input_mobile">手机号码</string>
     <string name="login_input_password">密码</string>
-    <string name="regist_input_moblie">11位手机号码</string>
-    <string name="regist_input_password">6-12位数字或字母</string>
-    <string name="regist_input_verifycode">验证码</string>
+    <string name="register_input_moblie">11位手机号码</string>
+    <string name="register_input_password">6-12位数字或字母</string>
+    <string name="register_input_verifycode">验证码</string>
     <string name="get_verifycode">获取验证码</string>
     <string name="media_ejected">储存卡已拔出，语音功能将暂时不可用</string>
     <string name="app_crash_tips">系统错误</string>
@@ -21,6 +21,11 @@
     <string name="login_singin">登陆</string>
     <string name="split">-or-</string>
     <string name="login_register">注册</string>
+    <string name="register_set_account">设置账号</string>
+    <string name="register_set_password">设置密码</string>
+    <string name="register_set_basice_info">设置基本信息</string>
+    <string name="back">返回</string>
+    <string name="next_btn">下一步</string>
     <string name="notification_fmt_one_txttype">%s发来1条消息</string>
     <string name="notification_fmt_one_imgtype">%s发来1张图片</string>
     <string name="notification_fmt_one_voicetype">%s发来1段语音</string>
