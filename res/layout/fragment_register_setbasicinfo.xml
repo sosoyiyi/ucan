@@ -1,9 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pickerui="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="2"/>
+    android:gravity="center_horizontal" >
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/register_set_basic_info"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:id="@+id/register_sex_select"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/SmallListHeight"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp" >
+
+            <Button
+                android:id="@+id/register_fromBtn"
+                style="@style/FormInputView"
+                android:gravity="center"
+                android:hint="@string/basic_info_from" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp" >
+
+            <Button
+                android:id="@+id/register_nikename"
+                style="@style/FormInputView"
+                android:gravity="center"
+                android:hint="@string/basic_info_nickname" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register_singup"
+            style="@style/FormButtonView"
+            android:text="@string/login_register" >
+        </Button>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/register_license_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_license_tip" />
+
+            <TextView
+                android:id="@+id/register_license"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/register_license_tip"
+                android:layout_toRightOf="@id/register_license_tip"
+                android:text="@string/register_license"
+                android:textColor="@color/blue" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.ucan.app.ui.dpizarro.uipicker.PickerUI
+        android:id="@+id/picker_province"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        pickerui:autoDismiss="true"
+        pickerui:backgroundColor="#4cffa5"
+        pickerui:blur="true"
+        pickerui:blur_FilterColor="#ff5e48"
+        pickerui:blur_downScaleFactor="@integer/blur_downscale_min"
+        pickerui:blur_radius="@integer/blur_radius_min"
+        pickerui:blur_use_renderscript="true"
+        pickerui:itemsClickables="true"
+        pickerui:linesCenterColor="#3941ff"
+        pickerui:textCenterColor="#000000"
+        pickerui:textNoCenterColor="#737373" />
+
+</RelativeLayout>

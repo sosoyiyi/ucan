@@ -5,7 +5,7 @@
     <LinearLayout
         android:id="@+id/tab_bar"
         android:layout_width="match_parent"
-        android:layout_height="52.0dip"
+        android:layout_height="@dimen/tabbar_content_height"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_border"
         android:baselineAligned="false"
@@ -60,13 +60,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-
         <RelativeLayout
             android:id="@+id/btn_container_group_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" >
-
             <Button
                 android:id="@+id/tab_btn_group"
                 android:layout_width="match_parent"

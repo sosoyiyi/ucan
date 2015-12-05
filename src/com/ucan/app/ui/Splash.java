@@ -1,12 +1,10 @@
 package com.ucan.app.ui;
-
+ 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.ucan.app.R;
 import com.ucan.app.base.manager.UCAppManager;
@@ -17,8 +15,7 @@ import com.ucan.app.ui.activity.MainActivity;
 import com.ucan.app.ui.base.BaseActivity;
 import com.yuntongxun.ecsdk.platformtools.ECHandlerHelper;
 
-public class Splash extends BaseActivity implements View.OnClickListener {
-	private ImageView view;
+public class Splash extends BaseActivity {
 	private String account;
 	private Context ctx;
 
@@ -34,18 +31,7 @@ public class Splash extends BaseActivity implements View.OnClickListener {
 			SDKCoreHelper.init(ctx);
 		}
 		ECHandlerHelper.postDelayedRunnOnUI(initRunnable, 3000);
-		view = (ImageView) findViewById(R.id.welcome_logo_iv_dest);
-		view.setOnClickListener(this);
-	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.welcome_logo_iv_dest:
-			break;
-		default:
-			break;
-		}
 	}
 
 	private Runnable initRunnable = new Runnable() {

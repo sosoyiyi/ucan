@@ -4,8 +4,8 @@
     <color name="contain_fragment_background">#fffbf6f2</color>
     <color name="dialog_background">#fffbf6f2</color>
     <color name="text_content">#ffa19d94</color>
-    <color name="top_bar">#ffffff</color>
-    <color name="top_bar_text">#ff454545</color>
+    <color name="top_bar">#ffe94729</color>
+    <color name="top_bar_text">#ffffffff</color>
     <color name="blue">#ff169aff</color>
     <color name="white">#ffffffff</color>
     <color name="white_trans">#22ffffff</color>
@@ -35,10 +35,29 @@
     <color name="common_bottom_bar_normal_bg">#ffffff</color>
     <color name="bottom_button_text_color">#cdcdcd</color>
     <color name="text_disabled">#ffa8a8a8</color>
-
+	<color name="female_pink">#ffffc0cb</color>
     <item name="menu_pressed_color" type="color">@color/small_line_color</item>
 
     <color name="small_line_color">#26000000</color>
     <color name="common_popup_menu_list_divider">#ff191919</color>
+
+    <!-- PickerUI lines colors -->
+    <color name="lines_panel_pickerui">#ffaaaaaa</color>
+    <color name="background_picker">#ff579fff</color>
+    <!-- PickerUI panel colors -->
+    <color name="background_panel_pickerui">#fffafafa</color>
+
+    <!-- PickerUI items colors -->
+    <color name="text_center_pickerui">#ff000000</color>
+    <color name="text_no_center_pickerui">#aaa</color>
+
+    <drawable name="list_item_selected">#aaaaaa</drawable>
+
+    <!-- PickerUI shadow colors -->
+    <color name="grey1">#00CCCCCC</color>
+    <color name="grey2">#10CCCCCC</color>
+    <color name="grey3">#20CCCCCC</color>
+    <color name="grey4">#30CCCCCC</color>
+    <color name="grey5">#50747474</color>
 
 </resources>

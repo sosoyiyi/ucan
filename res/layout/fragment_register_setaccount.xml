@@ -75,7 +75,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/next_btn"
+            android:id="@+id/acc_next_btn"
             style="@style/FormButtonView"
             android:text="@string/next_btn" >
         </Button>

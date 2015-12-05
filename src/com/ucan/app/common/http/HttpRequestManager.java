@@ -15,7 +15,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.ucan.app.R;
 import com.ucan.app.common.utils.LogUtil;
+import com.ucan.app.common.utils.ToastUtil;
 
 public class HttpRequestManager {
 
@@ -82,6 +84,7 @@ public class HttpRequestManager {
 		@Override
 		public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 				Throwable arg3) {
+			ToastUtil.showMessage(R.string.http_error_1);
 			onError(arg0, arg1, arg2, arg3);
 		}
 

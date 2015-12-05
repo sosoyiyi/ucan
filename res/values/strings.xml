@@ -5,8 +5,14 @@
     <string name="login_input_mobile">手机号码</string>
     <string name="login_input_password">密码</string>
     <string name="register_input_moblie">11位手机号码</string>
-    <string name="register_input_password">6-12位数字或字母</string>
+    <string name="register_input_password">8-16位数字和字母</string>
+    <string name="register_input_password_ag">再输一遍</string>
     <string name="register_input_verifycode">验证码</string>
+    <string name="basic_info_from">我来自</string>
+    <string name="basic_info_nickname">我叫</string>
+    <string name="basic_info_male">男</string>
+    <string name="basic_info_female">女</string>
+    <string name="sex_tips">选定之后不能再修改</string>
     <string name="get_verifycode">获取验证码</string>
     <string name="media_ejected">储存卡已拔出，语音功能将暂时不可用</string>
     <string name="app_crash_tips">系统错误</string>
@@ -21,9 +27,11 @@
     <string name="login_singin">登陆</string>
     <string name="split">-or-</string>
     <string name="login_register">注册</string>
+    <string name="register_license">《优侃用户协议》</string>
+    <string name="register_license_tip">注册即表示同意</string>
     <string name="register_set_account">设置账号</string>
     <string name="register_set_password">设置密码</string>
-    <string name="register_set_basice_info">设置基本信息</string>
+    <string name="register_set_basic_info">设置基本信息</string>
     <string name="back">返回</string>
     <string name="next_btn">下一步</string>
     <string name="notification_fmt_one_txttype">%s发来1条消息</string>
@@ -73,5 +81,28 @@
     <string name="app_tip">提示</string>
     <string name="ec_empty_inter_phone">暂无房间</string>
     <string name="str_chatroom_list_join_number" formatted="false">%1$s/%2$s</string>
+    <string name="http_error_1">无法连接服务器</string>
+    <string name="http_error_2">获取数据失败，请稍后再试</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
+    <string name="slide_up">Slide up</string>
+    <string name="slide">Slide</string>
+    <string name="slide_down">Slide down</string>
+    <string name="random_color">Random color</string>
+    <string name="use_blur">Use blur</string>
+    <string name="items_clickables">Items clickables</string>
+    <string name="auto_dismiss">Auto dismiss</string>
+    <string name="blur_radius">Blur Radius</string>
+    <string name="blur_downscale">Blur Downscale</string>
 
 </resources>

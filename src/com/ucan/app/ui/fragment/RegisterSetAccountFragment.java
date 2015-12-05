@@ -29,6 +29,7 @@ import com.ucan.app.R;
 import com.ucan.app.common.http.HttpRequestManager;
 import com.ucan.app.common.utils.LogUtil;
 import com.ucan.app.common.utils.ToastUtil;
+import com.ucan.app.common.utils.VeryUtils;
 import com.ucan.app.common.view.DefineInputView;
 
 public class RegisterSetAccountFragment extends Fragment implements
@@ -40,13 +41,13 @@ public class RegisterSetAccountFragment extends Fragment implements
 	private EditText vcodeInput;
 	private DefineInputView mobileInput;
 	private View view;
-	private OnPushDataListener mListener;
+	private OnSyncDataListener mListener;
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			mListener = (OnPushDataListener) activity;
+			mListener = (OnSyncDataListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ "must implement OnPushDataListener");
@@ -61,15 +62,15 @@ public class RegisterSetAccountFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		time = new TimeCount(60000, 1000);
 		view = inflater.inflate(R.layout.fragment_register_setaccount,
 				container, false);
 		mobileInput = (DefineInputView) view.findViewById(R.id.register_mobile);
 		vcodeInput = (EditText) view.findViewById(R.id.register_verifycode);
 		getVcodeBtn = (Button) view.findViewById(R.id.register_get_verifycode);
 		getVcodeBtn.setOnClickListener(this);
-		nextBtn = (Button) view.findViewById(R.id.next_btn);
+		nextBtn = (Button) view.findViewById(R.id.acc_next_btn);
 		nextBtn.setOnClickListener(this);
+		time = new TimeCount(60000, 1000);
 		return view;
 	}
 
@@ -91,7 +92,8 @@ public class RegisterSetAccountFragment extends Fragment implements
 	 * 刷新页面
 	 */
 	public void refresh() {
-		vcodeInput.setText("");
+		if (vcodeInput != null)
+			vcodeInput.setText("");
 
 	}
 
@@ -126,13 +128,7 @@ public class RegisterSetAccountFragment extends Fragment implements
 					@Override
 					public void onError(String result) {
 						LogUtil.e(result);
-						try {
-							ToastUtil.showMessage(new JSONObject(result).get(
-									"msg").toString());
-						} catch (JSONException e) {
-							ToastUtil.showMessage("网络连接异常");
-							e.printStackTrace();
-						}
+						ToastUtil.showMessage(R.string.http_error_2);
 					}
 
 					@Override
@@ -140,14 +136,14 @@ public class RegisterSetAccountFragment extends Fragment implements
 						LogUtil.e(result);
 						try {
 							JSONObject rs = new JSONObject(result);
-							if (rs.get("msg").equals("请60秒后再重发验证码")) {
+							if ((Integer) rs.get("code") != 0) {
 								ToastUtil.showMessage(new JSONObject(result)
 										.get("msg").toString());
-							} else {
-								time.start();
+								return;
 							}
-
+							time.start();
 						} catch (JSONException e) {
+							ToastUtil.showMessage(R.string.http_error_2);
 							e.printStackTrace();
 						}
 					}
@@ -164,10 +160,17 @@ public class RegisterSetAccountFragment extends Fragment implements
 				ToastUtil.showMessage("请输入手机号");
 				return;
 			}
-			HashMap<String, String> param = new HashMap<String, String>();
-			param.put("account", account);
-			HttpRequestManager.getInstance().isEffectiveUser(param,
-					new HttpRequestManager.OnAsyncResponseListener() {
+			if (!VeryUtils.validPhoneNumber(account)) {
+				ToastUtil.showMessage("请输入正确的手机号码");
+				return;
+			}
+			HttpRequestManager.getInstance().isEffectiveUser(
+					new HashMap<String, String>() {
+						private static final long serialVersionUID = -7130671072591476015L;
+						{
+							put("account", account);
+						}
+					}, new HttpRequestManager.OnAsyncResponseListener() {
 						@Override
 						public void onSuccess(int code,
 								List<HashMap<String, String>> data, int length) {
@@ -181,13 +184,11 @@ public class RegisterSetAccountFragment extends Fragment implements
 						@Override
 						public void onError(int statu, Header[] arg1,
 								byte[] arg2, Throwable arg3) {
-							ToastUtil.showMessage("无法连接服务器");
 							arg3.printStackTrace();
 						}
 					});
-
 			break;
-		case R.id.next_btn:
+		case R.id.acc_next_btn:
 			account = mobileInput.getText().toString().trim();
 			if (TextUtils.isEmpty(account)) {
 				ToastUtil.showMessage("请输入手机号");
@@ -198,24 +199,24 @@ public class RegisterSetAccountFragment extends Fragment implements
 				ToastUtil.showMessage("验证码不能为空");
 				return;
 			}
-			requestLogin(mListener);
+			mListener.OnPushData(new HashMap<String, String>() {
+				private static final long serialVersionUID = -6261061978150358762L;
+				{
+					put("account", account);
+				}
+			});
+			  //requestLogin(mListener);
 			break;
 		}
 	}
 
-	private void requestLogin(OnPushDataListener onPushDataListener) {
+	private void requestLogin(OnSyncDataListener onPushDataListener) {
 		QJLinkManager.getInstance(getActivity()).requestLogin(account, vcode,
 				new OnLoadDataListener() {
 					@Override
 					public void onError(String result) {
 						LogUtil.e(result);
-						try {
-							ToastUtil.showMessage(new JSONObject(result).get(
-									"msg").toString());
-						} catch (JSONException e) {
-							ToastUtil.showMessage("网络连接异常");
-							e.printStackTrace();
-						}
+						ToastUtil.showMessage(R.string.http_error_2);
 					}
 
 					@Override
@@ -223,15 +224,19 @@ public class RegisterSetAccountFragment extends Fragment implements
 						LogUtil.e(result);
 						try {
 							JSONObject rs = new JSONObject(result);
-							if (rs.get("state").equals("failure")) {
+							if ((Integer) rs.get("code") != 0) {
 								ToastUtil.showMessage(new JSONObject(result)
 										.get("msg").toString());
 								return;
 							}
-							mListener.OnPushData("account", account);
+							mListener.OnPushData(new HashMap<String, String>() {
+								private static final long serialVersionUID = -6261061978150358762L;
+								{
+									put("account", account);
+								}
+							});
 						} catch (JSONException e) {
-							e.printStackTrace();
-						} catch (Exception e) {
+							ToastUtil.showMessage(R.string.http_error_2);
 							e.printStackTrace();
 						}
 					}

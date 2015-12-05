@@ -6,24 +6,40 @@
     android:background="@drawable/bg"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".5"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
-        <com.ucan.app.common.view.CircularImage
-            android:id="@+id/cover_user_photo"
-            android:layout_width="120.0dip"
-            android:layout_height="120.0dip" />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="130.0dp"
+            android:layout_height="130.0dp"
+            android:layout_centerInParent="true" >
+
+            <com.ucan.app.common.view.CircularImage
+                android:id="@+id/photo_border"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true" >
+
+            <com.ucan.app.common.view.CircularImage
+                android:id="@+id/user_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:divider="@drawable/spacer_medium"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:showDividers="middle" >
@@ -43,7 +59,7 @@
             android:drawableStart="@drawable/password"
             android:hint="@string/login_input_password"
             android:inputType="textPassword" />
-
+     
         <Button
             android:id="@+id/login_signin"
             style="@style/FormButtonView"

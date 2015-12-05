@@ -4,8 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/bg"
-    android:orientation="vertical" 
-    android:paddingTop="20dp">
+    android:orientation="vertical"
+    android:paddingTop="20dp" >
 
     <RelativeLayout
         android:id="@+id/fragment_contain"
@@ -15,5 +15,6 @@
         android:layout_centerInParent="true"
         android:layout_centerVertical="true" >
     </RelativeLayout>
+
 
 </RelativeLayout>

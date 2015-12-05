@@ -37,7 +37,7 @@ import com.ucan.app.ui.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity implements TextWatcher,
 		View.OnClickListener {
-	private CircularImage cover_user_photo;
+	private CircularImage user_photo, photo_border;
 	private DefineInputView mobileInput, pwdInput;
 	private Button signInBtn, signUpBtn;
 	private String account, password;
@@ -77,11 +77,18 @@ public class LoginActivity extends BaseActivity implements TextWatcher,
 	private void initRes() {
 		setContentView(R.layout.activity_login);
 		setTranslucentStatus();
-		cover_user_photo = (CircularImage) findViewById(R.id.cover_user_photo);
-		cover_user_photo.setBorderWidth(1);
-		cover_user_photo.setBorderColor(getResources().getColor(
+		photo_border = (CircularImage) findViewById(R.id.photo_border);
+		photo_border.setBorderWidth(1);
+		photo_border.setBorderColor(getResources().getColor(
+				R.color.white));
+		photo_border.setImageResource(R.drawable.photo_border);
+		
+		
+		user_photo = (CircularImage) findViewById(R.id.user_photo);
+		user_photo.setBorderWidth(3);
+		user_photo.setBorderColor(getResources().getColor(
 				R.color.user_level3_Gold));
-		cover_user_photo.setImageResource(R.drawable.user_photo);
+		user_photo.setImageResource(R.drawable.user_photo);
 
 		mobileInput = (DefineInputView) findViewById(R.id.login_mobile);
 		mobileInput.addTextChangedListener(this);

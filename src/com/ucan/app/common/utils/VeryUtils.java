@@ -352,6 +352,40 @@ public class VeryUtils {
 	}
 
 	/**
+	 * 验证手机号合法性 中国大陆
+	 * 
+	 * @param str
+	 * @return
+	 */
+
+	public static boolean validPhoneNumber(String str) {
+		String regEx = "^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 
+	 * 验证密码格式8-16位数字和字母
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean validPassword(String str) {
+		String regEx = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+		Pattern p = Pattern.compile(regEx);
+		Matcher m = p.matcher(str);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * 删除号码中的所有非数字
 	 *
 	 * @param str

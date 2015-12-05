@@ -1,6 +1,5 @@
 package com.ucan.app.ui.fragment;
 
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,15 +9,14 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+
 import com.ucan.app.R;
 import com.ucan.app.common.adapter.OverflowAdapter;
 import com.ucan.app.common.adapter.OverflowAdapter.OverflowItem;
 import com.ucan.app.core.SDKCoreHelper;
-import com.ucan.app.ui.activity.MainActivity;
 import com.ucan.app.ui.activity.SearchActivity;
 import com.ucan.app.ui.base.OverflowHelper;
 
@@ -54,7 +52,7 @@ public class ChatRoomFragment extends Fragment {
 				.add(R.id.fragment_content, contentFragment[0])
 				.add(R.id.fragment_content, contentFragment[1])
 				.hide(contentFragment[1]).commit();
-		view.findViewById(R.id.btn_menu).setOnClickListener(btnClickListener);
+		//view.findViewById(R.id.btn_menu).setOnClickListener(btnClickListener);
 		return view;
 	}
 
@@ -63,9 +61,9 @@ public class ChatRoomFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.btn_menu:
+			/*case R.id.btn_menu:
 				controlPlusSubMenu();
-				break;
+				break;*/
 			}
 		}
 	};
@@ -129,7 +127,7 @@ public class ChatRoomFragment extends Fragment {
 		mOverflowHelper.setOverflowItems(mItems);
 		mOverflowHelper
 				.setOnOverflowItemClickListener(mOverflowItemCliclListener);
-		mOverflowHelper.showAsDropDown(view.findViewById(R.id.btn_menu));
+		//mOverflowHelper.showAsDropDown(view.findViewById(R.id.btn_menu));
 	}
 
 	private final AdapterView.OnItemClickListener mOverflowItemCliclListener = new AdapterView.OnItemClickListener() {
