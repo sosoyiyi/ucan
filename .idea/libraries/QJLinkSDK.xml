@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="QJLinkSDK">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/QJLinkSDK.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
